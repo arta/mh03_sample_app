@@ -3,4 +3,8 @@
 • Temporarily rename|move app layout for TDD practice purposes; interesting:
 
     $ mv app/views/layouts/application.html.erb layout_file
+    
+: and rename|move it back when needed again:
+
+    $ mv layout_file app/views/layouts/application.html.erb
 ################################################################################
