@@ -1,0 +1,20 @@
+################################################################################
+# 1-28-17: #####################################################################
+• WHAT, WHEN:
+
+    $ bundle exec guard
+    > Expected string default value for '--listen-on'; got false (boolean)
+
+• WHY:
+: http://stackoverflow.com/a/41035588/247626
+
+• SOLUTION:
+: Gemfile:
+
+    gem 'thor', '0.19.1'
+
+: and (following instructions):
+
+    $ bundle update thor
+    $ bundle
+################################################################################
