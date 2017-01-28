@@ -1,10 +1,78 @@
 ################################################################################
 # 1-28-17: #####################################################################
 • Automated tests with Guard:
+: https://www.railstutorial.org/book/static_pages#sec-guard
 
     $ bundle exec guard init
 
-: https://www.railstutorial.org/book/static_pages#sec-guard
+: Configure/customize Guardfile, and let Guard run (in its own terminal tab?):
+
+    $ bundle exect guard
+    
+: To run all the tests, hit return/enter and the guard> prompt
+
+    guard> [Enter]
+
+: To exit Guard, hit Ctrl-D
+
+: To add additional matchers to Guard, refer to the examples in Listing 3.45, 
+  the Guard README, and the Guard wiki.
+  
+• To manually facilitate/optimize Spring usage:
+  : https://www.railstutorial.org/book/static_pages#sec-guard:
+  
+  "The Spring server is still a little quirky as of this writing, and sometimes 
+  Spring processes will accumulate and slow performance of your tests. If your 
+  tests seem to be getting unusually sluggish, it’s thus a good idea to inspect
+  the system processes and kill them if necessary (Box 3.4)."
+  
+  Box 3.4. Unix processes
+  
+    On Unix-like systems such as Linux and macOS, user and system tasks each 
+    take place within a well-defined container called a process. To see all 
+    the processes on your system, you can use the ps command with 
+    the aux options:
+
+      $ ps aux
+  
+    To filter the processes by type, you can run the results of ps through 
+    the grep pattern-matcher using a Unix pipe |:
+
+      $ ps aux | grep spring
+      > ubuntu 12241 0.3 0.5 589960 178416 ? Ssl Sep20 1:46
+      > spring app | sample_app | started 7 hours ago
+
+    The result shown gives some details about the process, but the most 
+    important thing is the first number, which is the process id, or pid. 
+    To eliminate an unwanted process, use the kill command to issue 
+    the Unix termination signal (which happens to be 15) to the pid:
+
+      $ kill -15 12241
+
+    This is the technique I recommend for killing individual processes, such as 
+    a rogue Rails server (with the pid found via ps aux | grep server), but 
+    sometimes it’s convenient to kill all the processes matching a particular 
+    process name, such as when you want to kill all the spring processes 
+    gunking up your system. In this particular case, you should first try 
+    stopping the processes with the spring command itself:
+
+      $ spring stop
+
+    Sometimes this doesn’t work, though, and you can kill all the processes 
+    with name spring using the pkill command as follows:
+
+      $ pkill -15 -f spring
+
+    Any time something isn’t behaving as expected or a process appears to be 
+    frozen, it’s a good idea to run ps aux to see what’s going on, and then run:
+  
+      $ kill -15 <pid> 
+    
+    or 
+  
+      $ pkill -15 -f <name> 
+    
+    to clear things up.
 ################################################################################
 
 
