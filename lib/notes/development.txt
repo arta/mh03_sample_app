@@ -1,5 +1,14 @@
 ################################################################################
 # 1-28-17: #####################################################################
+################################################################################
+• Note on the surprising use of `provide` instead of the usual `content_for`
+  in the views.
+: https://www.railstutorial.org/book/static_pages#cha-3_footnote-15
+  
+    "Experienced Rails developers might have expected the use of content_for 
+    at this point, but it doesn’t work well with the asset pipeline. 
+    The provide function is its replacement."
+################################################################################
 • Automated tests with Guard:
 : https://www.railstutorial.org/book/static_pages#sec-guard
 
