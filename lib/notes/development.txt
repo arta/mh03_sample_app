@@ -1,6 +1,22 @@
 ################################################################################
 # 1-28-17: #####################################################################
 ################################################################################
+• Usage of nano text editor
+
+  http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/
+
+: to create irb (and rails console) config file simplifying prompts and 
+  suppressing some annoying auto-indent behavior:
+
+    $ nano ~/.irbrc
+
+      IRB.conf[:PROMPT_MODE] = :SIMPLE
+      IRB.conf[:AUTO_INDENT_MODE] = false
+      
+  : The last command to exit from the stubbornly not refusing to go away nano
+    was simply ... pressing Enter  ... :)
+
+################################################################################
 • Note on the surprising use of `provide` instead of the usual `content_for`
   in the views.
 : https://www.railstutorial.org/book/static_pages#cha-3_footnote-15
@@ -8,6 +24,7 @@
     "Experienced Rails developers might have expected the use of content_for 
     at this point, but it doesn’t work well with the asset pipeline. 
     The provide function is its replacement."
+
 ################################################################################
 • Automated tests with Guard:
 : https://www.railstutorial.org/book/static_pages#sec-guard
@@ -82,6 +99,7 @@
       $ pkill -15 -f <name> 
     
     to clear things up.
+
 ################################################################################
 
 
@@ -95,4 +113,5 @@
 : and rename|move it back when needed again:
 
     $ mv layout_file app/views/layouts/application.html.erb
+
 ################################################################################
