@@ -2,7 +2,11 @@
 # 1-29-17: #####################################################################
 • Test named routes to static resources:
 
-  $ rails g integration_test site_layout
+    $ rails g integration_test site_layout
+
+• Test application helper methods:
+
+    $ rails g integration_test application_helper
 
 ################################################################################
 
