@@ -64,7 +64,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'password should be present' do
-    @user.password = @user.password_confirmation = ' '
+    @user.password = @user.password_confirmation = ' ' * 6
+    assert @user.invalid?
+  end
+
+  test 'password should have minimum length' do
+    @user.password = @user.password_confirmation = 'a' * 5
     assert @user.invalid?
   end
 end
