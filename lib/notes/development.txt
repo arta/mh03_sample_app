@@ -1,4 +1,41 @@
 ################################################################################
+# 2-1-17: ######################################################################
+################################################################################
+• Nicer model output in the $ rails console
+
+    puts user.attributes.to_yaml 
+    ==
+    y user.attributes
+
+################################################################################
+• Rails environments: 
+: test, development, and production
+: Rails provides a Rails object with an env attribute and associated environment 
+  boolean methods.
+: The console default env is development:
+
+    $ rails console
+    Loading development environment
+    >> Rails.env
+    => "development"
+    >> Rails.env.development?
+    => true
+
+: run in a different environment:
+
+    $ rails console test
+
+: similarly, but confusingly differently:
+
+    $ rails server --environment production
+
+    $ rails db:migrate RAILS_ENV=production
+    
+: preceding any of them with RAILS_ENV=<env> will also work, as in: 
+  
+    $ RAILS_ENV=production rails server
+
+################################################################################
 # 1-31-17: #####################################################################
 • Enforcing email uniqueness in the db:
 : because, in Michael Hartl's words:
