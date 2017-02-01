@@ -1,4 +1,26 @@
 ################################################################################
+# 2-1-17: #####################################################################
+• WHAT: just checking quard terminal tab I see:
+    
+  > You don't have bcrypt installed in your application. Please add it to your 
+  > Gemfile and run bundle installETA: ??:??:??
+  > ERROR["test_full_title_helper", ApplicationHelperTest, 0.02808261103928089]
+  > test_full_title_helper#ApplicationHelperTest (0.03s)
+  > LoadError:         LoadError: cannot load such file -- bcrypt
+  >         app/models/user.rb:10:in `<class:User>'
+  >         app/models/user.rb:1:in `<top (required)>'
+
+• WHEN: definitelly, after all User bcrypt related tests passed ...
+
+• FIX: using development notes from 1-28-17:
+
+    $ ps aux | grep spring
+  
+  > list of 4 spring processes running, killed them all one by one:
+  
+    $ kill -15 <pid>
+
+################################################################################
 # 1-28-17: #####################################################################
 • WHAT, WHEN:
 

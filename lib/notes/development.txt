@@ -144,7 +144,7 @@
 
 : Configure/customize Guardfile, and let Guard run (in its own terminal tab?):
 
-    $ bundle exect guard
+    $ bundle exec guard
     
 : To run all the tests, hit return/enter and the guard> prompt
 
