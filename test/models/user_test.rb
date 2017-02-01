@@ -62,4 +62,9 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal mixcase_email.downcase, @user.reload.email
   end
+
+  test 'password should be present' do
+    @user.password = @user.password_confirmation = ' '
+    assert @user.invalid?
+  end
 end
