@@ -1,4 +1,38 @@
 ################################################################################
+# 1-31-17: #####################################################################
+• Enforcing email uniqueness in the db:
+: because, in Michael Hartl's words:
+
+  "... There’s just one small problem, which is that the Active Record 
+  uniqueness validation does not guarantee uniqueness at the database level. 
+  Here’s a scenario that explains why:
+
+    1. Alice signs up for the sample app, with address alice@wonderland.com.
+    2. Alice accidentally clicks on “Submit” twice, sending two requests in 
+       quick succession.
+    3. The following sequence occurs: request 1 creates a user in memory that 
+       passes validation, request 2 does the same, request 1’s user gets saved, 
+       request 2’s user gets saved.
+    4. Result: two user records with the exact same email address, despite 
+       the uniqueness validation
+  
+  If the above sequence seems implausible, believe me, it isn’t: it can 
+  happen on any Rails website with significant traffic (which I once learned 
+  the hard way). ..."
+  
+: Solution:
+
+    $ rails g migration add_index_to_users_email
+    
+  : and, in the migration: 
+  
+    add_index :users, :email, unique: true
+
+################################################################################
+
+
+
+################################################################################
 # 1-29-17: #####################################################################
 ################################################################################
 • Run rails console without changing db data:
