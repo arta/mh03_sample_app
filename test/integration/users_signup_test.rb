@@ -11,4 +11,15 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
     assert_template 'users/new'
   end
+
+  test 'invalid email error message' do
+    get signup_path
+    post users_path, params: { user: { name: 'Valid Name',
+                                       email: 'invalid@email',
+                                       password: 'validpswd',
+                                       password_confirmation: 'validpswd' } }
+    assert_template 'users/new'
+    assert_select 'div#error_explanation li', 1
+    assert_select 'div#error_explanation li', { count: 1, text: 'Email is invalid' }
+  end
 end
