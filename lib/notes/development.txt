@@ -1,5 +1,23 @@
 ################################################################################
 # 2-2-17: ######################################################################
+################################################################################
+• Test invalid signup via Ruby idiomatic comparison of before and after:
+
+    assert_no_difference 'User.count' do
+      post users_path, params: { user: { name:  "",
+                                         email: "user@invalid",
+                                         password:              "foo",
+                                         password_confirmation: "bar" } }
+    end
+
+  == 
+  
+    before_count = User.count
+    post users_path, ...
+    after_count  = User.count
+    assert_equal before_count, after_count
+
+################################################################################
 • New Ruby syntax for passing hash to a method
 
   : traditional (< Ruby 2.0 ) syntax:
