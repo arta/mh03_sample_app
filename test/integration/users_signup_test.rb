@@ -21,5 +21,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/new'
     assert_select 'div#error_explanation li', 1
     assert_select 'div#error_explanation li', { count: 1, text: 'Email is invalid' }
+    assert_select 'div.field_with_errors', 2
   end
 end
