@@ -38,4 +38,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert flash[:success].present?
     assert_select 'div.alert.alert-success', String.present?
   end
+  
+  test 'signup post route exists' do
+    get signup_path
+    assert_select "form[action=?]", '/signup'
+  end
 end

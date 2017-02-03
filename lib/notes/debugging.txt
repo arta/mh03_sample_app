@@ -1,4 +1,35 @@
 ################################################################################
+# 2-3-17: #####################################################################
+• WHAT: Signing up new user crashes.
+
+• WHY: `post '/signup', to: 'users#create'` route no longer exists 
+  : it was replaced with Rails' RESTful `resources :users`, which generated 
+    `post '/users', to: 'users#create'`
+
+• ISSUE: This aspect is not covered with a test:
+  : actual post to sign up route in `=form_for @user ...` is not tested, 
+    and so when it's changed, tests are still Green although they should be Red.
+
+• FIX: 
+  : 0) It is a good practice to write tests for discovered bugs.
+  : 1) Reinstate the `post '/signup', to: 'users#create'` route, 
+  : 2) write test coverage for it
+    : to catch a "bug" when the route is changed
+    : to be updated when this route changes and the test turns Red
+
+      assert_select "form[action=?]", signup_path
+
+  : 3) Test the `post '/signup`, to:..` route (= see Green)
+  : 4) Then remove the custom route in favor of Rails's RESTful resource
+    `post '/users', to: 'users#create'` provided by `resources :users`
+    : The above test will be Red
+    : It will have to be updated to test the new route to be Green again
+
+################################################################################
+
+
+
+################################################################################
 # 2-1-17: #####################################################################
 • WHAT: just checking quard terminal tab I see:
     
