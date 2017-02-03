@@ -34,5 +34,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_template 'users/show'
+    assert flash.any?
+    assert flash[:success].present?
+    assert_select 'div.alert.alert-success', String.present?
   end
 end
