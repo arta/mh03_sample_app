@@ -1,5 +1,14 @@
 ################################################################################
 # 2-3-17: ######################################################################
+################################################################################
+• Piping rails routes output to grep:
+
+    $ rails routes | grep sessions
+  
+: Piping to grep, grepping:
+  https://www.learnenough.com/command-line-tutorial#sec-grepping
+
+################################################################################
 • Tidy up signup routing:
 : replace custom route:
   
