@@ -1,7 +1,23 @@
 ################################################################################
+# 2-3-17: ######################################################################
+• Tidy up signup routing:
+: replace custom route:
+  
+    post '/signup', to: 'users#create'
+    
+: with the Rails' default RESTful route:
+
+    post '/users', to: 'users#create'     #<= implicitly generated with 
+                                              resources :users
+
+################################################################################
+
+
+
+################################################################################
 # 2-2-17: ######################################################################
 ################################################################################
-• Testing flash caveat: "... (Even testing for the right key, much less the text, 
+• Testing flash caveat: "...(Even testing for the right key, much less the text, 
   is likely to be brittle, so I [Michale Hartl] prefer to test only that 
   the flash isn’t empty.)"
 

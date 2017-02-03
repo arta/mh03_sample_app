@@ -27,7 +27,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test 'valid signup information' do
     get signup_path
     assert_difference 'User.count', 1 do
-      post signup_path, params: { user: { name: 'Valid Name',
+      post users_path, params: { user: { name: 'Valid Name',
                                           email: 'valid@email.com',
                                           password: 'validpswd',
                                           password_confirmation: 'validpswd' } }
@@ -41,6 +41,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   
   test 'signup post route exists' do
     get signup_path
-    assert_select "form[action=?]", '/signup'
+    assert_select "form[action=?]", users_path
   end
 end

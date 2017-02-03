@@ -24,6 +24,8 @@
     `post '/users', to: 'users#create'` provided by `resources :users`
     : The above test will be Red
     : It will have to be updated to test the new route to be Green again
+    
+      assert_select "form[action=?]", users_path
 
 ################################################################################
 
