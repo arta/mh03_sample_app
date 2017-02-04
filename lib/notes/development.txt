@@ -3,10 +3,11 @@
 ################################################################################
 • Setting up the form for a new session:
 : since we have no @session (*) to pass to form_for helper from which Rails
-  could infer the name for params hash aggregating the form's inputs and 
-  the action for the form (and the method), we'll provide explicitly:
+  would infer 1) the name for the key of params hash pointing to the nested hash 
+  aggregating the form's inputs and 2) the action for the form (and the method), 
+  we'll provide them explicitly:
   
-    = form_for :session, url: login_path ...
+    = form_for :session, url: login_path ... (method: :post is default ?)
     
   (*) class Session that includes ActiveModel::Validations would work?
       http://railscasts.com/episodes/219-active-model
