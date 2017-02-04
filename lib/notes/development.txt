@@ -1,5 +1,23 @@
 ################################################################################
-# 2-3-17: ######################################################################
+# 2-4-17: ######################################################################
+################################################################################
+• Design aspects of current_user helper:
+
+: Prevent repeated db hits for each occurence of an object instance while 
+  processing request/response: 
+  : store the object instance in a:
+
+      @instance_variable 
+  
+  : it persists throughout persistance of the controler handling the object
+    instance while processing the request/response
+
+: Handle authentication User.find failure graciously:
+
+    User.find( session[:user_id] )          <- failure raises exception
+    
+    User.find_by( id: session[:user_id] )   <- failure returns nil
+
 ################################################################################
 • Session security:
 : temporary cookies created with the session method are automatically encrypted.
