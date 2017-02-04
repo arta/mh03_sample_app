@@ -1,5 +1,15 @@
 ################################################################################
 # 2-3-17: ######################################################################
+################################################################################
+• SessionsHelper as a module for sessions implementation:
+: paraphrasing M.H.: Implementing sessions involves defining a large number of 
+  related functions for use across multiple controllers and views. ... 
+  Conveniently, a Sessions helper module was generated when generating 
+  the Sessions controller ... by including the module into the base class of all 
+  controllers - the Application controller - we arrange to make it available in 
+  other controllers as well."
+
+################################################################################
 • Flash on rendered pages:
 : use version of flash designed specifically for rendered pages 
   (rather than rediret_to pages):
@@ -7,6 +17,7 @@
     flash.now[:notice] 
 
 ################################################################################
+
 
 
 ################################################################################
