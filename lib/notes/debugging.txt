@@ -1,4 +1,38 @@
 ################################################################################
+# 2-4-17: #####################################################################
+################################################################################
+• WHAT: Test assert_select fails when it should pass.
+
+• WHEN: After:
+
+    post login_path, params: { session: ... }
+
+• WHY: Did not redirect.
+
+  : Remmber:
+    In integration tests, we must follow redirects. That's the whole point.
+    
+• FIX:
+    ...
+    post login_path, params: { session: ... }
+    follow_redirect!
+    assert ...
+    ...
+
+################################################################################
+• WHAT: Test login fails when it should pass
+
+• WHEN: Going line by line through set up, before assertions
+
+• WHY: To login a user, the app is posting session, not user !!!
+
+    post login_path, params: { user: ... }        <- nope!
+  
+• FIX:
+
+    post login_path, params: { session: ... }     <- yep!
+
+################################################################################
 # 2-3-17: #####################################################################
 • WHAT: Signing up new user crashes.
 

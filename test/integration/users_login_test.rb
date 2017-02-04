@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class UsersLoginTest < ActionDispatch::IntegrationTest
+  
+  def setup
+    @user = users( :michael )
+  end
+
   # Test to catch unwanted flash persistance:
-  test "login failure flash should not persist for two pages" do
+  test "failed login flash should not persist for two pages" do
     # Visit the login path.
     get login_path
     # Verify that the new sessions form renders properly.
@@ -21,11 +26,20 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   # Test login layout changes:  
-  test 'login success should switch user authentication navigation' do
+  test 'successful login should redirect and switch user authentication navigation' do
     # Visit the login path.
+    get login_path
     # Post valid information to the sessions path.
+    post login_path, params: { session: { email: @user.email, password: 'password' } }
+    assert_redirected_to @user
+    follow_redirect!
+    assert_template 'users/show'
     # Verify that the login link disappears.
+    assert_select 'a[href=?]', login_path, count: 0
+    assert_select "a[href='/login']", false
     # Verify that a logout link appears
+    assert_select 'a[href=?]', logout_path
     # Verify that a profile link appears.
+    assert_select 'a[href=?]', user_path( @user )
   end
 end
