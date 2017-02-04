@@ -19,4 +19,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert flash.empty?
     assert_not_equal 'Invalid email/password combination.', flash[:danger]
   end
+
+  # Test login layout changes:  
+  test 'login success should switch user authentication navigation' do
+    # Visit the login path.
+    # Post valid information to the sessions path.
+    # Verify that the login link disappears.
+    # Verify that a logout link appears
+    # Verify that a profile link appears.
+  end
 end
