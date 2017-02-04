@@ -1,6 +1,11 @@
 ################################################################################
 # 2-3-17: ######################################################################
 ################################################################################
+• Session security:
+: temporary cookies created with the session method are automatically encrypted.
+  Attackers cannot use the session information to log in as the user.
+
+################################################################################
 • SessionsHelper as a module for sessions implementation:
 : paraphrasing M.H.: Implementing sessions involves defining a large number of 
   related functions for use across multiple controllers and views. ... 
