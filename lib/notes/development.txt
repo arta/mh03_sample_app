@@ -1,6 +1,52 @@
 ################################################################################
 # 2-4-17: ######################################################################
 ################################################################################
+• Issue with and solutio of fixtures and user passwords:
+: Although we’ve defined the password_digest attribute required by 
+  has_secure_password, sometimes it’s convenient to refer to the plain (virtual) 
+  password, too. Unfortunately, this is impossible to arrange with fixtures, and
+  adding a password attribute causes Rails to complain that there is no such 
+  column in the database (which is true). We’ll make do by adopting 
+  the convention that all fixture users have the same password (’password’).
+
+################################################################################
+• Reading Rails' ActiveModel::SecurePassword code:
+
+: To use it in fixtures for the already logged in user
+
+: Users' password digest is created using bcrypt (via has_secure_password), so
+  we’ll need to create the fixture password using the same method.
+  
+  https://www.railstutorial.org/book/basic_login#sec-testing_layout_changes
+  https://github.com/rails/rails/blob/master/activemodel/lib/active_model/secure_password.rb
+  
+    def password=( unencrypted_password )
+      ...
+        cost = ActiveModel::SecurePassword.min_cost ? 
+          BCrypt::Engine::MIN_COST : 
+          BCrypt::Engine.cost
+        self.password_digest = BCrypt::Password.create( unencrypted_password, 
+          cost: cost )
+      end
+    end
+
+    : unencrypted_password is the string (password) to be hashed
+    : cost determines the computational cost to calculate the hash
+      ( use .min_cost for testing environment )
+
+: Because we won’t necessarily have access to a user instance when calculating 
+  the digest (e.g. in the fixtures file), we’ll attach the digest method to 
+  the User class itself, making it a class method, thus available anywhere
+  ( since we can invoke any class anywhere: Class.method_name; User.digest )
+
+################################################################################
+• Fixtures:
+: Tests verifying changes subsequent to sucsessful user login need to log in 
+  as a previously registered user, which means that such a user must already 
+  exist in the database. The default Rails way to do this is to use fixtures.
+: Fixtures support embedded Ruby
+
+################################################################################
 • Design aspects of current_user helper:
 
 : Prevent repeated db hits for each occurence of an object instance while 
