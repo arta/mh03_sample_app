@@ -6,12 +6,13 @@
 : Michael Hartl's: 
   
     session.delete( :user_id )       <- and source of :user_id not explained!?!
-                                        2-5-17: session is implemented as hash, 
-                                        :user_id is a key,
-                                        current_user.id is its value:
-                                        session[:user_id] == current_user.id
-                                        To delete value at a specific key:
-                                        session.delete( :key )
+                                        2-5-17: session is a file interfaced in 
+                                        the Rails' app code as a hash:
+                                          :user_id is a key
+                                          current_user.id is its value
+                                          session[:user_id] == current_user.id
+                                        Delete value of a specific session key:
+                                          session.delete( :key )
                                         
 
 : Rails Guides recommended:
