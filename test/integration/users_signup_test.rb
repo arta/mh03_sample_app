@@ -37,6 +37,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert flash.any?
     assert flash[:success].present?
     assert_select 'div.alert.alert-success', String.present?
+    assert_select 'a[href=?]', logout_path
   end
   
   test 'signup post route exists' do
