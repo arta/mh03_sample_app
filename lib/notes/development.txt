@@ -207,6 +207,19 @@
 ################################################################################
 # 2-1-17: ######################################################################
 ################################################################################
+• Authentication with Rails' own `has_secure_password` declared in User:
+  : Adds the following functionality to User:
+    : ability to save a securely hashed .password_digest attribute to the db
+    : a pair of virtual attributes:
+      : 1) .password
+      : 2) .password_confirmation
+    : validation of .password presence and match with .password_confirmation
+    : an .authenticate() method to users
+      : returns the user when the password is correct 
+      : returns false otherwise
+  : Migrate add_passoword_digest_to_users to make it work
+
+################################################################################
 • Nicer model output in the $ rails console
 
     puts user.attributes.to_yaml 
