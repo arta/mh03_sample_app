@@ -30,4 +30,8 @@ class User < ApplicationRecord
     self.remember_token = User.new_token
     update_attribute :remember_digest, User.digest( remember_token )
   end
+  
+  def authenticated?( cookies_remember_token )
+    BCrypt::Password.new( self.remember_digest ) == cookies_remember_token
+  end
 end
