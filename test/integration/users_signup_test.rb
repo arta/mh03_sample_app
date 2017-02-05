@@ -38,6 +38,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert flash[:success].present?
     assert_select 'div.alert.alert-success', String.present?
     assert_select 'a[href=?]', logout_path
+    assert is_logged_in? # wouldn't `session[:user_id].present?` be better here?
   end
   
   test 'signup post route exists' do

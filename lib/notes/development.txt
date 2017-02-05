@@ -1,6 +1,19 @@
 ################################################################################
 # 2-4-17: ######################################################################
 ################################################################################
+• Helper method names:
+: keep app helper method_names different from test helper method_names:
+
+    logged_in? vs. is_logged_in?
+    
+  : Ex. "I [M.H.] once had a test suite that was green even after accidentally 
+    deleting the main log_in method in the Sessions helper. The reason is that 
+    the tests were happily using a test helper with the same name, thereby 
+    passing even though the application was completely broken."
+    
+    ... hm ... but, how would different help method_names prevent this?
+
+################################################################################
 • Issue with and solutio of fixtures and user passwords:
 : Although we’ve defined the password_digest attribute required by 
   has_secure_password, sometimes it’s convenient to refer to the plain (virtual) 
