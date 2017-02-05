@@ -1,6 +1,20 @@
 ################################################################################
 # 2-4-17: ######################################################################
 ################################################################################
+• Questionable logout helper:
+
+: Michael Hartl's: 
+  
+    session.delete( :user_id )       <- and source of :user_id not explained!?!
+
+: Rails Guides recommended:
+  
+    reset_session
+
+  : http://stackoverflow.com/a/36956785/247626
+  : http://guides.rubyonrails.org/security.html#session-fixation-countermeasures
+
+################################################################################
 • Helper method names:
 : keep app helper method_names different from test helper method_names:
 
