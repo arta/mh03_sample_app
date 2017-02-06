@@ -1,5 +1,23 @@
 ################################################################################
 # 2-6-17: ######################################################################
+################################################################################
+• WHAT: returning to the unexpected 2nd error associated with logged out user 
+  logging out again on another tab running the app:
+  
+    > ActionController::InvalidAuthenticityToken at /logout
+
+• ISSUE: logging out changes authenticity token, another attempt to log out is 
+  interpreted as forgery
+  
+• SOLUTION: skip logout reqeuest verification with session reset
+: resets session just like logout sessions_helper; should be ok.
+
+    skip_before_action :verify_authenticity_token, 
+      only: :destroy, with: :reset_session
+
+: Implementing without a test; dont' know how to write it.
+
+################################################################################
 • WHAT: 2nd of the two subtle bugs: user is running the app logged in two 
   browsers. Logs out of one, closes and reopens the other.
 : app error:
@@ -44,6 +62,7 @@
 • Well, test passes, but the app behaves the same, error and message remain:
 : ActionController::InvalidAuthenticityToken
 : probably for a different reason ... nevermind ... not important for now
+  : see note from 2-6-2017 above
 
 ################################################################################
 
