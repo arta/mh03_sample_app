@@ -72,4 +72,8 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = 'a' * 5
     assert @user.invalid?
   end
+  
+  test 'authenticated? should return false when remember_digest is blank' do
+    assert_not @user.authenticated? 'irrelevant cookie token'
+  end
 end

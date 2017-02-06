@@ -32,6 +32,7 @@ class User < ApplicationRecord
   end
   
   def authenticated?( cookies_remember_token )
+    return false if self.remember_digest.blank?
     BCrypt::Password.new( self.remember_digest ) == cookies_remember_token
   end
   

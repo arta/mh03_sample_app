@@ -1,6 +1,32 @@
 ################################################################################
-# 2-6-17: #####################################################################
-• WHAT: 
+# 2-6-17: ######################################################################
+• WHAT: 2nd of the two subtle bugs: user is running the app logged in two 
+  browsers. Logs out of one, closes and reopens the other.
+: app error:
+    > BCrypt::Errors::InvalidHash in StaticPages#home
+
+• ISSUE: Sending .authenticated? to user with no .remember_digest
+
+    def authenticated?( cookies_remember_token )
+      BCrypt::Password.new( self.remember_digest ) == cookies_remember_token
+    end
+
+: The user is still logged in the second browser (via a cookie with her :user_id 
+  and :remember_token) but has no .remember_digest (deleted by her logout in 
+  the first browser). BCrypt returns `InvalidHash` exception.
+
+• SOLUTION: Harder to simulate with an integration test, but easy to check in 
+  the User model test directly:
+  : Start with a user that has no .remember_digest (true for the @user variable 
+    defined in the setup method)
+  : Then ask .authenticated? with 'irrelevant cookie token'
+  : Note the 'irrelevant cookie token' passed to .authenticated? 
+    : the BCrypt error occurs before the token passed in ever gets used
+    : so, its value is irrelevant
+
+################################################################################
+• WHAT, WHEN: 1st of the two subtle bugs. User runs app in two (or more) tabs, 
+  logs out from one tab, then logs out from another (without reloading it). 
 : app error msg:
     > ActionController::InvalidAuthenticityToken
 
@@ -8,9 +34,6 @@
     > NoMethodError: undefined method `forget' for nil:NilClass
     > app/helpers/sessions_helper.rb:31:in `forget'
     > app/helpers/sessions_helper.rb:37:in `log_out'
-
-• WHEN: User runs app in two (or more) tabs, logs out from one tab, then logs 
-  out from another (without reloading it). 
 
 • ISSUE: loging out a nonexistent user, i.e. sending the 'forget' message to 
   a nonexistent current_user
