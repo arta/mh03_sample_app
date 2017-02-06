@@ -1,8 +1,35 @@
 ################################################################################
+# 2-6-17: #####################################################################
+• WHAT: 
+: app error msg:
+    > ActionController::InvalidAuthenticityToken
+
+: intergation test UsersLoginTest error msg:
+    > NoMethodError: undefined method `forget' for nil:NilClass
+    > app/helpers/sessions_helper.rb:31:in `forget'
+    > app/helpers/sessions_helper.rb:37:in `log_out'
+
+• WHEN: User runs app in two (or more) tabs, logs out from one tab, then logs 
+  out from another (without reloading it). 
+
+• ISSUE: loging out a nonexistent user, i.e. sending the 'forget' message to 
+  a nonexistent current_user
+
+• SOLUTION: check if user is logged in before logging out.
+
+• Well, test passes, but the app behaves the same, error and message remain:
+: ActionController::InvalidAuthenticityToken
+: probably for a different reason ... nevermind ... not important for now
+
+################################################################################
+
+
+
+################################################################################
 # 2-5-17: #####################################################################
 • WHAT: Two subtle logout bugs:
 
-• WHEN:logout when logged_in  
+• WHEN: logout when logged_in  
   : 1) two tabs
   : 2) two browsers
   
