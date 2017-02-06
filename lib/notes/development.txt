@@ -1,8 +1,14 @@
 ################################################################################
 # 2-5-17: ######################################################################
-• Session helper .remember( user ):
+• Session helper remember( user ):
 : user's logging in will be remembered in the sense that their browser will get 
   a valid remember token.
+: it's defined in sessions_helper (available to controllers and views) because 
+  it's the app's functionality, not user's
+  : sessions an cookies are available in the app (controllers), not models
+: and, to close the circle, this is why remember_token is stored (temporarily) 
+  as users' virtual attribute, not just a local variable: it needs to be 
+  available in sessions_helper for storage in cookies
 
 ################################################################################
 
