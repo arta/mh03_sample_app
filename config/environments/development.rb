@@ -55,5 +55,6 @@ Rails.application.configure do
   # 2-6-17: better_errors on cloud9
   BetterErrors::Middleware.allow_ip! '69.179.6.0/24'
   BetterErrors::Middleware.allow_ip! '10.240.0.0/24'
-  config.web_console.whitelisted_ips = ['69.179.6.0/24', '10.240.0.0/24']
+  BetterErrors::Middleware.allow_ip! '10.240.1.0/24'
+  config.web_console.whitelisted_ips = ['69.179.6.0/24', '10.240.0.0/24', '10.240.1.0/24']
 end
