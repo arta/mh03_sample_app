@@ -1,4 +1,20 @@
 ################################################################################
+# 2-6-17: ######################################################################
+• Make better_errors work on cloud9:
+: http://stackoverflow.com/a/39278041/247626
+: in development.rb
+ 
+    BetterErrors::Middleware.allow_ip! '69.179.6.0/24'
+
+  : find the present '69.179.6':
+    : search env dump (@_request or @_response) for :
+      HTTP_X_FORWARDED_FOR"=>"xxx.xxx.xxx.xxx"
+    : or visit: http://ifconfig.me
+################################################################################
+
+
+
+################################################################################
 # 2-5-17: ######################################################################
 • Session helper remember( user ):
 : user's logging in will be remembered in the sense that their browser will get 
