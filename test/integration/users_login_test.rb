@@ -3,6 +3,7 @@ require 'test_helper'
 class UsersLoginTest < ActionDispatch::IntegrationTest
   
   def setup
+    # Load user from fixtures:
     @user = users( :michael )
   end
 
@@ -58,5 +59,20 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', login_path
     assert_select 'a[href=?]', logout_path,        count: 0
     assert_select 'a[href=?]', user_path( @user ), count: 0
+  end
+
+  test "login with :remember_me checked remembers the user" do
+    log_in_as( @user, remember_me: '1' )
+    assert_not_empty cookies['remember_token']
+    assert cookies['remember_token'].present? # same
+  end
+
+  test "login with :remember_me unchecked forgets the remembered user" do
+    # Log in to set the cookie.
+    log_in_as( @user, remember_me: '1' )
+    # Log in again and verify that the previously set cookie is deleted.
+    log_in_as( @user, remember_me: '0' )
+    assert_empty cookies['remember_token']
+    assert cookies['remember_token'].empty? # same
   end
 end

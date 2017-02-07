@@ -1,5 +1,37 @@
 ################################################################################
 # 2-6-17: ######################################################################
+################################################################################
+• Reading cookies in tests:
+
+      cookies['name']
+    
+  : NOT the intuitive/insctinctive:
+  
+      cookies[:name]
+
+  : dunno why ....
+
+################################################################################
+• test_helper.rb:
+  : With all these helper method added to different files, I'm confused, 
+    all tests run when is_logged_in? is moved from
+    
+      class ActiveSupport::TestCase
+        ...
+      end
+  
+  : to
+  
+      class ActionDispatch::IntegrationTest
+        ...
+      end
+  
+  : Additionally, is_logged_in? is - presently - used only in integration tests 
+    which inherit from ActionDispatch::IntegrationTest. It is not used in the 
+    user_test.rb at all and model tests inherit from ActiveSupport::TestCase. 
+    But it works from ActiveSupport::TestCase anyway ... What's going on?
+
+################################################################################
 • Make better_errors work on cloud9:
 : http://stackoverflow.com/a/39278041/247626
 : http://stackoverflow.com/a/41633349/247626
