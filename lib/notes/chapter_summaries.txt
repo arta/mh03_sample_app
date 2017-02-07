@@ -1,0 +1,190 @@
+################################################################################
+9. Advanced login ##############################################################
+
+• Rails can maintain state from one page to the next using persistent cookies 
+  via the cookies method.
+• We associate to each user a remember token and a corresponding remember digest 
+  for use in persistent sessions.
+• Using the cookies method, we create a persistent session by placing 
+  a permanent remember token cookie on the browser.
+• Login status is determined by the presence of a current user based on 
+  the temporary session’s user id or the permanent session’s user id and 
+  unique remember token.
+• The application signs users out by deleting the session’s user id and 
+  removing the permanent cookie from the browser.
+• The ternary operator is a compact way to write simple if-then statements.
+
+################################################################################
+
+
+
+################################################################################
+8. Basic login #################################################################
+
+• Rails can maintain state from one page to the next using temporary cookies via 
+  the session method.
+• The login form is designed to create a new session to log a user in.
+• The flash.now method is used for flash messages on rendered pages.
+• Test-driven development is useful when debugging by reproducing the bug 
+  in a test.
+• Using the session method, we can securely place a user id on the browser to 
+  create a temporary session.
+• We can change features such as links on the layouts based on login status.
+• Integration tests can verify correct routes, database updates, and proper 
+  changes to the layout.
+
+################################################################################
+
+
+
+################################################################################
+7.  Sign up ####################################################################
+
+• Rails displays useful debug information via the debug (byebug) method.
+• Sass mixins allow a group of CSS rules to be bundled and reused in multiple 
+  places as mixins
+• Rails comes with three standard environments: development, test, production.
+• We can interact with users as a resource through a standard set of REST URLs.
+• Gravatars provide a convenient way of displaying images to represent users.
+• The form_for helper is used to generate forms for interacting with Active 
+  Record objects.
+• Signup failure renders the new user page and displays error messages 
+  automatically determined by Active Record.
+• Signup success creates a user in the database and redirects to the user show 
+  page, and displays a welcome message.
+• Rails provides the flash as a standard way to display temporary messages.
+• We can use integration tests to verify form submission behavior and catch 
+  regressions.
+• We can configure our production application to use SSL for secure 
+  communications and Puma server for high performance.
+
+################################################################################
+
+
+
+################################################################################
+6. Modeling users ##############################################################
+
+• Migrations allow us to modify our application’s data model.
+• Active Record comes with a large number of methods for creating and 
+  manipulating data models.
+• Active Record validations allow us to place constraints on the data in our 
+  models.
+• Common validations include presence, length, and format.
+• Regular expressions are cryptic but powerful.
+• Defining a database index improves lookup efficiency while allowing 
+  enforcement of uniqueness at the database level, deeper below the model level.
+• We can add a secure password to a model using the built-in has_secure_password
+  method.
+
+################################################################################
+
+
+
+################################################################################
+5. Filling in the layout #######################################################
+
+• Using HTML5, we can define a site layout with logo, header, footer, and main 
+  body content.
+• Rails partials are used to place markup in a separate file for convenience
+  : to DRY the view templates codebase 
+  : to clean and tidy up the view templates.
+• CSS allows us to style the site layout based on CSS classes and ids.
+• The Bootstrap framework makes it easy to make a nicely designed site quickly.
+• Sass and the asset pipeline allow us to eliminate duplication in our CSS while
+  packaging up the results efficiently for production.
+• Rails allows us to define custom routing rules, thereby providing named routes.
+• Integration tests effectively simulate a browser clicking from page to page.
+
+################################################################################
+
+
+
+################################################################################
+4. Rails-flavored Ruby #########################################################
+
+• Ruby has a large number of methods for interrogating and manipulating strings 
+  of characters.
+  : length, empty, include? ...
+• Everything in Ruby is an object.
+• Ruby supports method definition via the def keyword.
+• Ruby supports class definition via the class keyword.
+• Rails views can contain static HTML or embedded Ruby (ERb).
+• Built-in Ruby data structures include arrays, ranges, and hashes.
+  : split a string to get an array
+  : arrays index is "circular": [0, 1, 2, 3, ... -1]
+  : use range to get a section of an array
+  : arrays can be sorted, reversed, shuffled, ...
+  : join array to get a string
+• Arrays and hashes can be freely nested (Rails uses this feature a lot)
+• Ruby blocks are a flexible construct that (among other things) allow natural 
+  iteration over enumerable data structures.
+• Symbols are labels, like strings but without any internal structure.
+• Ruby supports object inheritance.
+• It is possible to open up and modify built-in Ruby classes.
+• The word “deified” is a palindrome.
+
+################################################################################
+
+
+
+################################################################################
+3. Mostly static pages #########################################################
+
+• For a third time, we went through the full procedure of creating a new Rails 
+  application from scratch, installing the necessary gems, pushing it up to 
+  a remote repository, and deploying it to production.
+• The rails script generates a new controller with 
+  $ rails generate controller ControllerName <optional action names>.
+• New routes are defined in the file config/routes.rb.
+• Rails views can contain static HTML or embedded Ruby (ERb).
+• Automated testing allows us to write test suites that drive the development of 
+  new features, allow for confident refactoring, and catch regressions.
+• Test-driven development uses a “Red, Green, Refactor” cycle.
+• Rails layouts allow the use of a common template for pages in our application, 
+  thereby eliminating duplication.
+
+################################################################################
+
+
+
+################################################################################
+2. A toy app ###################################################################
+
+• Scaffolding automatically creates code to model data and interact with it 
+  through the web.
+• Scaffolding is good for getting started quickly but is bad for understanding.
+• Rails uses the Model-View-Controller (MVC) pattern for structuring web 
+  applications.
+  : Actually, it's R C M V, or even R C M V R (RaCe MoVeR)
+  : Router, Controller, Model, View (, Router)
+• As interpreted by Rails, the REST architecture includes a standard set of URLs
+  and controller actions for interacting with data models.
+• Rails supports data validations to place constraints on the values of data 
+  model attributes.
+• Rails comes with built-in functions for defining associations between 
+  different data models.
+• We can interact with Rails applications at the command line using the Rails 
+  console.
+
+################################################################################
+
+
+
+################################################################################
+1. From zero to deploy #########################################################
+
+• Ruby on Rails is a web development framework written in the Ruby programming 
+  language.
+• Installing Rails, generating an application, and editing the resulting files 
+  is easy using a pre-configured cloud environment.
+• Rails comes with a command-line command called rails that can generate new 
+  applications ($ rails new) and run local servers ($ rails server).
+• We added a controller action and modified the root route to create 
+  a “hello, world” application.
+• We protected against data loss while enabling collaboration by placing our 
+  application source code under version control with Git and pushing 
+  the resulting code to a private repository at Bitbucket.
+• We deployed our application to a production environment using Heroku.
+
+################################################################################
