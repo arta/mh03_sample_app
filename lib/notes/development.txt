@@ -1,6 +1,18 @@
 ################################################################################
 # 2-6-17: ######################################################################
 ################################################################################
+• Revisiting BCrypt: 
+  : The mysterious lines in user.rb and users_login_test.rb:
+  
+      BCrypt::Password.new( self.remember_digest ) == cookies_remember_token
+      BCrypt::Password.new( u.remember_digest ) == cookies['remember_token']
+  
+  : do a lot of things ... but basically ...
+  : The `==` is a sugarcoated `.password?( undigested )` meessage to
+    BCrypt::Password.new( digested ) that digests the undigested for comparison
+    with the digested ... yeah.
+  
+################################################################################
 • Reading cookies in tests:
 
       cookies['name']

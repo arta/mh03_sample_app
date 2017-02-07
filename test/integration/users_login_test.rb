@@ -65,6 +65,12 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     log_in_as( @user, remember_me: '1' )
     assert_not_empty cookies['remember_token']
     assert cookies['remember_token'].present? # same
+    # With @user (instead of user) in sessions_controller we can:
+    u = assigns( :user ) #<= returns the @user created in sessions_contoller
+    assert_equal cookies['remember_token'], u.remember_token
+    # To show/test what `BCrypt::Password.new( digested ) == undigested` does:
+    assert BCrypt::Password.new( u.remember_digest ) == cookies['remember_token']
+    assert u.remember_digest != cookies['remember_token']
   end
 
   test "login with :remember_me unchecked forgets the remembered user" do
