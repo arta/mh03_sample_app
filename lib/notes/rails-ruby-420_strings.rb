@@ -103,3 +103,22 @@ palindrome_tester( "onomatopoeia" )
 palindrome_tester( "racecar" ).nil? #<= ... nope 
 
 ################################################################################
+
+
+
+################################################################################
+# Something to remember, copied from rails-ruby-432_blocks.rb, belongs here, too
+
+# Split's default separator is whitespace(s):
+p "f o o      b a    r".split
+# not characters:
+p "foobar".split        # no split, BUT, interestingly, 
+                        # returns "foobar" as an array ["foobar"]
+                        # whereas "foobar".to_a will not    !!!   :)
+
+# To split on characters, specify:
+p "foobar baz".split('') # no whitespace
+
+# To remove the whitespace: strip whitespace before calling .reject( &:empty? )
+p "foobar baz".split('').map{ |e| e.strip }.reject( &:empty? )
+# .reject( &:blank? ) alone would do in rails
