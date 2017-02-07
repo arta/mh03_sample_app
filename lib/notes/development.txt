@@ -1,6 +1,14 @@
 ################################################################################
 # 2-6-17: ######################################################################
 ################################################################################
+• Finding/confirming untested areas of codebase:
+
+: M.H: My favorite way to handle this kind of situation is to raise 
+  an exception in the suspected untested block of code: 
+  : if the code isn’t covered, the tests will still pass
+  : if it is covered, the resulting error will identify the relevant test
+
+################################################################################
 • Revisiting BCrypt: 
   : The mysterious lines in user.rb and users_login_test.rb:
   
