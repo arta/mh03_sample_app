@@ -37,8 +37,4 @@ module SessionsHelper
     forget current_user
     reset_session
   end
-  
-  def remember_me_checked?
-    params[:session][:remember_me] == '1'
-  end
 end
