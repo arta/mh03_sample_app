@@ -12,17 +12,16 @@ module SessionsHelper
   
   # Return user from session or cookie if authenticated
   def current_user
-    @current_user = if user_id = session[:user_id]
-      # raise       # The tests fail (if uncommented), so this branch is tested.
-      User.find_by id: user_id
-    elsif user_id = cookies.signed[:user_id]
-      raise       # The tests still pass, so this branch is currently untested.
-      user = User.find_by id: user_id
-      if user.try :authenticated?, cookies[:remember_token]
-        log_in user
-        user
+    @current_user = 
+      if user_id = session[:user_id]
+        User.find_by id: user_id
+      elsif user_id = cookies.signed[:user_id]
+        user = User.find_by id: user_id
+        if user.try :authenticated?, cookies[:remember_token]
+          log_in user
+          user
+        end
       end
-    end
   end
   
   def logged_in?
