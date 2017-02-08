@@ -1,6 +1,18 @@
 ################################################################################
 # 2-7-17: ######################################################################
 ################################################################################
+• Use Ruby 2.0 `keyword arguments` syntax to pass a hash of local variables 
+  to partials:
+  
+      <%= render 'form', button_text: 'Create my account' %>
+
+  : in favor of the old:
+  
+      <%= render 'form', locals: { button_text: 'Create my account' } %>
+
+  : works out of the box, hm, will it break something unexpectadly?
+
+################################################################################
 • rel='noopener' 
 
 : directing a link to another site to open in a new tab (target='_blank') opens 
