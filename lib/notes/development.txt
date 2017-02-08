@@ -1,6 +1,15 @@
 ################################################################################
 # 2-7-17: ######################################################################
 ################################################################################
+• rel='noopener' 
+
+: directing a link to another site to open in a new tab (target='_blank') opens 
+  a minor phishing vulnerability
+: implementing rel='noopener' closes that hole:
+  
+      <a href="http://somepl.ace" target="_blank" rel='noopener'>Lovely</a>
+
+################################################################################
 • Turn heroku production app to maintanance mode for deployment:
 
     $ heroku maintenance:on
