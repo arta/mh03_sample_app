@@ -1,6 +1,20 @@
 ################################################################################
 # 2-22-17: ######################################################################
 ################################################################################
+• Hacking our site via turning an arbitrary account into admin:
+
+      patch /users/17?admin=1
+    
+  : Command-line tools such as curl can issue PATCH requests.    
+
+• Rails' strong parameters prevents this type of hacks
+
+      params.require( :user ).permit( :name, ... ) #<= admin is not whitelisted!
+
+  : only works, of course, when permitted params are specified (= whitelisting)
+  : it's a good idea to write test for attributes that are not permitted
+
+################################################################################
 • re-seed the db, with the 1st user admin:
 
     $ rails db:migrate:reset
