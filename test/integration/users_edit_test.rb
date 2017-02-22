@@ -29,6 +29,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path( @user )
     follow_redirect! # to check the template
     assert_template 'users/edit'
+    assert session[:forwarding_url].nil?
     name  = "Foo Bar"
     email = "foo@bar.com"
     patch user_path(@user), params: { user: { name:  name,
