@@ -21,12 +21,13 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_select 'div.field_with_errors', count: 8
   end
 
-  test "successful edit" do
+  test "successful edit after friendly forwarding" do
     get edit_user_path(@user)
     assert_redirected_to login_path
-    # follow_redirect!
+    # follow_redirect! # not needed if not checking template
     log_in_as @user
     assert_redirected_to edit_user_path( @user )
+    follow_redirect! # to check the template
     assert_template 'users/edit'
     name  = "Foo Bar"
     email = "foo@bar.com"
