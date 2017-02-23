@@ -64,7 +64,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   # See user_signup_test :: valid_signup_information and 
-  # users_index_test :: index_as_admin_including_pagination_and_delete_links 
+  # users_index_test :: index_as_admin_with_pagination_and_delete_links 
   # for `assert_difference`
   test "should redirect destroy when not logged in" do
     assert_no_difference 'User.count' do
