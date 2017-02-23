@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :authenticate_user, only: [:index, :edit, :update, :destroy]
+  before_action :authorize_user,    only: [:edit, :update]
+  before_action :authorize_admin,   only: :destroy
 
   def index
     @users = User.page params[:page]
@@ -53,20 +53,23 @@ class UsersController < ApplicationController
         :password, :password_confirmation )
     end
 
-    def logged_in_user
-      unless logged_in?
+    def authenticate_user
+      unless current_user.present?
         store_location
         flash[:danger] = 'Please, log in.'
         redirect_to login_path
       end
     end
+    alias_method :logged_in_user, :authenticate_user
 
-    def correct_user
+    def authorize_user
       @user = User.find params[:id]
       redirect_to root_path unless current_user?( @user )
     end
+    alias_method :correct_user, :authorize_user
 
-    def admin_user
+    def authorize_admin
       redirect_to root_path unless current_user.admin?
     end
+    alias_method :admin_user, :authorize_admin
 end
