@@ -2,8 +2,13 @@
 # 2-23-17: #####################################################################
 • Where do which tests go?
 
-   "Following the practice ... we’ll put action-level tests of access control in 
-   the Users controller test file."
+  : Failed users#destroy by not-logged-in or non-admin user:
+    : "Following the practice ... we’ll put action-level tests of access control
+      in the test/controllers/users_controller_test.rb."
+   
+  : Succesful users#destroy by admin user:
+    : "Since the delete links appear on the users index, we’ll add these tests 
+      to the test/integration/users_index_test.rb"
    
 ################################################################################
 
