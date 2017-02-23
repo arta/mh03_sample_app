@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
 
   has_secure_password
 
@@ -11,7 +11,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
-  before_save { email.downcase! }
+  before_create :create_activation_digest
+  before_save   :downcase_email
 
   class << self
     # Returns the hash digest of the given string.
@@ -41,4 +42,14 @@ class User < ApplicationRecord
   def forget
     update_attribute :remember_digest, nil
   end
+
+  private
+    def downcase_email
+      email.downcase!
+    end
+
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest( activation_token )
+    end
 end
