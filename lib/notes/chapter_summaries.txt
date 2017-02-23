@@ -1,4 +1,32 @@
 ################################################################################
+10. Updating, showing, and deleting users ######################################
+
+• Users can be updated using an edit form, which sends a PATCH request to the 
+  update action.
+• Safe updating through the web is enforced using strong parameters.
+• Before actions give a standard way to run methods before particular controller 
+  actions.
+• We implement an authentication and authorization using before actions.
+• Authentication/authorization tests use both low-level commands to submit 
+  particular HTTP requests directly to controller actions and high-level 
+  integration tests.
+• Friendly forwarding redirects users where they wanted to go after logging in.
+• The users index page shows all users, one page at a time.
+• Rails uses the standard file db/seeds.rb to seed the database with sample data
+  using rails db:seed.
+• Running render @users automatically calls the _user.html.erb partial on each 
+  user in the collection; works through adherence to naming conventions:
+  : `render @user(s)` renders `/users/_user.html.erb` with a variable `user`
+• A boolean attribute called admin on the User model automatically creates 
+  an admin? boolean method on user objects.
+• Admins can delete users through the web by clicking on delete links that issue 
+  DELETE requests to the Users controller destroy action.
+• We can create a multiple test users using embedded Ruby inside fixtures.
+################################################################################
+
+
+
+################################################################################
 9. Advanced login ##############################################################
 
 • Rails can maintain state from one page to the next using persistent cookies 
