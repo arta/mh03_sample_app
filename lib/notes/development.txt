@@ -29,6 +29,11 @@
   : Rails automatically escapes out any special characters. The resulting email 
     address will also be unescaped automatically in the controller, and will be 
     available via params[:email].
+    
+• Get escaped value in console:
+
+    >> CGI.escape( "Don't panic!" )
+    => "Don%27t+panic%21"
 
 ################################################################################
 • Generate mailer:
