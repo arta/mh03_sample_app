@@ -1,4 +1,30 @@
 ################################################################################
+# 2-24-17: #####################################################################
+• WHAT:
+
+    ERROR["test_account_activation", UserMailerTest, 0.5881627060007304]
+     test_account_activation#UserMailerTest (0.59s)
+    ActiveRecord::Fixture::FixtureError:         ActiveRecord::Fixture::FixtureE
+    rror: table "users" has no column named "user_0".
+
+• WHEN: testing UserMailer account_activation (in user_mailer_test.rb)
+
+• WHY: my yesterday's trying to adhere to conventional Ruby indentation style in
+  fixtures; users.yml
+
+• SOLUTION: put the indentation as M.H. had it: butted against the left margin
+: http://stackoverflow.com/questions/32363454/rails-hartl-tutorial-table-user-has-no-column-named
+
+: REMEMBER:
+  : .yml file is not .rb file
+  : yaml lead lines start butted against left margin
+  : (yaml is indentation super sensitive ...)
+
+################################################################################
+
+
+
+################################################################################
 # 2-6-17: ######################################################################
 ################################################################################
 • WHAT: returning to the unexpected 2nd error associated with logged out user 
