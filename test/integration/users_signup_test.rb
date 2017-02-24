@@ -33,12 +33,12 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                           password_confirmation: 'validpswd' } }
     end
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'static_pages/home'
     assert flash.any?
-    assert flash[:success].present?
-    assert_select 'div.alert.alert-success', String.present?
-    assert_select 'a[href=?]', logout_path
-    assert is_logged_in? # wouldn't `session[:user_id].present?` be better here?
+    assert flash[:info].present?
+    assert_select 'div.alert.alert-info', String.present?
+    assert_select 'a[href=?]', login_path
+    assert_not is_logged_in? # wouldn't `session[:user_id].nil?` be better here?
   end
   
   test 'signup post route exists' do
