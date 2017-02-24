@@ -1,6 +1,36 @@
 ################################################################################
 # 2-23-17: #####################################################################
 ################################################################################
+• Account activation routing.
+
+  : Why is the account activation request routed as:
+    
+      GET /account_activations/:id/edit
+      
+      # named: edit_account_activation_url( @user.activation_token )
+  
+  : instead of the intuitively expected RESTful:
+  
+      PATCH /account_activations/:id
+
+  : Because links in emails can only be GET
+    : because there's no JS available in emails
+  
+• The Rails' way of setting URL query parameters (reminder):
+
+  : to get:
+  
+      account_activations/q5lt38hQDc_959PVoo6b7A/edit?email=foo%40example.com
+  
+  : use a hash in the named route:
+  
+      edit_account_activation_url( @user.activation_token, email: @user.email )
+  
+  : Rails automatically escapes out any special characters. The resulting email 
+    address will also be unescaped automatically in the controller, and will be 
+    available via params[:email].
+
+################################################################################
 • Generate mailer:
 
   $ rails g mailer UserMailer account_activation password_reset
