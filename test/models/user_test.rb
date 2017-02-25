@@ -74,6 +74,6 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test 'authenticated? should return false when remember_digest is blank' do
-    assert_not @user.authenticated? 'irrelevant cookie token'
+    assert_not @user.authenticated?( :remember, 'irrelevant cookie token' )
   end
 end

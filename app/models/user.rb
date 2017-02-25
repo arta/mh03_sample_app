@@ -34,9 +34,10 @@ class User < ApplicationRecord
     update_attribute :remember_digest, User.digest( remember_token )
   end
   
-  def authenticated?( cookies_remember_token )
-    return false if self.remember_digest.blank?
-    BCrypt::Password.new( self.remember_digest ) == cookies_remember_token
+  def authenticated?( attribute, token )
+    digest = send( "#{attribute}_digest" )
+    return false if digest.blank?
+    BCrypt::Password.new( digest ) == token
   end
   
   def forget

@@ -1,4 +1,40 @@
 ################################################################################
+# 2-25-17: #####################################################################
+• WHAT:
+
+    ERROR["test_user_with_no_session_and_no_valid_cookie_should_not_be_logged_in
+    ", SessionsHelperTest, 3.027356256963685]
+     test_user_with_no_session_and_no_valid_cookie_should_not_be_logged_in#Sessi
+    onsHelperTest (3.03s)
+    BCrypt::Errors::InvalidHash:         BCrypt::Errors::InvalidHash: invalid ha
+    sh
+            app/models/user.rb:40:in `new'
+            ...
+            
+• WHEN: Refactoring user.authenticated? ...
+
+    digest = send( "#{attribute}_digest" )
+    return false if digest.nil?
+    BCrypt::Password.new( digest ) == token            #<= line 40
+
+• WHY: not sure how to explain, but swapping nil? for blank? makes the test pass
+
+• SOLUTION: 
+
+    ...
+    return false if digest.blank?
+    ...
+
+• FOOTNOTE: in M.H. words: 
+
+  "Refactoring the code as above is incredibly more error-prone without a solid 
+  test suite, which is why we went to such trouble to write good tests ..."
+
+################################################################################
+
+
+
+################################################################################
 # 2-24-17: #####################################################################
 • WHAT:
 
@@ -13,7 +49,8 @@
   fixtures; users.yml
 
 • SOLUTION: put the indentation as M.H. had it: butted against the left margin
-: http://stackoverflow.com/questions/32363454/rails-hartl-tutorial-table-user-has-no-column-named
+: http://stackoverflow.com/questions/32363454/rails-hartl-tutorial-table-user-ha
+  s-no-column-named
 
 : REMEMBER:
   : .yml file is not .rb file
