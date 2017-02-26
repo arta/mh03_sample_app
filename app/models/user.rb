@@ -29,6 +29,10 @@ class User < ApplicationRecord
     end
   end
 
+  def email_activation_link
+    UserMailer.account_activation( self ).deliver_now
+  end
+
   def remember
     self.remember_token = User.new_token
     update_attribute :remember_digest, User.digest( remember_token )
