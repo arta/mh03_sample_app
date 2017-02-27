@@ -1,5 +1,17 @@
 ################################################################################
 # 2-27-17: #####################################################################
+################################################################################
+• Check Sendgrid automatic settings on heroku.
+: First set it up:
+
+    $ heroku addons:create sendgrid:starter
+
+: this sets automatic user_name and password that can be seen by:
+
+    $ heroku config:get SENDGRID_USERNAME
+    $ heroku config:get SENDGRID_PASSWORD
+
+################################################################################
 • Difference between .count, .length, and .size:
 
 : While exploring why the users_index_test :: index_lists_only_activated_users
