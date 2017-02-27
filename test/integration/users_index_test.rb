@@ -2,8 +2,9 @@ require 'test_helper'
 
 class UsersIndexTest < ActionDispatch::IntegrationTest
   def setup
-    @admin =     users( :michael )
-    @non_admin = users( :archer )
+    @admin         = users( :michael )
+    @non_admin     = users( :archer )
+    @not_activated = users( :lana )
   end
 
   test "index as admin with pagination and delete links" do
@@ -11,7 +12,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     get users_path
     assert_template 'users/index'
     assert_select 'div.pagination', count: 2
-    first_page_of_users = User.page( 1 )
+    first_page_of_users = User.where( activated:true ).page( 1 )
     first_page_of_users.each do |user|
       assert_select 'a[href=?]', user_path( user ), text: user.name
       unless user == @admin # admin's own listing doesn't show delete link
@@ -27,5 +28,27 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     log_in_as @non_admin
     get users_path
     assert_select 'a', text: 'delete', count: 0
+  end
+  
+  test 'index lists only activated users' do
+    log_in_as @non_admin
+    get users_path
+    all_users = User.all.count
+    assert_equal all_users, 34
+    activated_users = assigns( :users )
+    assert_equal activated_users.count, 33
+    first_page_of_all_users = User.page( 1 )
+    assert first_page_of_all_users.pluck( :name ).include?( @not_activated.name )
+    first_page_of_users = User.where( activated:true ).page( 1 )
+    assert_not first_page_of_users.pluck( :name ).include?( @not_activated.name )
+    first_page_of_users.each do |user|
+      get user_path( user )
+      assert_template 'users/show'
+    end
+  end
+
+  test 'attempt to show not activated user redirects to root_path' do
+    get user_path( @not_activated )
+    assert_redirected_to root_path
   end
 end

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authorize_admin,   only: :destroy
 
   def index
-    @users = User.page params[:page]
+    @users = User.where( activated:true ).page( params[:page] )
   end
 
   def new
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    redirect_to root_path unless @user.activated?
   end
 
   def edit
