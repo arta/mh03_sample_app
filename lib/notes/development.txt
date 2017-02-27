@@ -1,4 +1,29 @@
 ################################################################################
+# 2-27-17: #####################################################################
+• Difference between .count, .length, and .size:
+
+: While exploring why the users_index_test :: index_lists_only_activated_users
+      ...
+      get users_path
+      all_users = User.all.count
+      assert_equal all_users, 34
+      activated_users = assigns( :users )
+      assert_equal activated_users.count, 33
+      ...
+
+  actually works, I learned that .count, .length and .size are not the same:
+  : count will perform an SQL COUNT query
+  : length will calculate the length of the resulting array
+  : size will try to pick the most appropriate of the two to avoid excessive 
+    queries
+
+: http://stackoverflow.com/a/21615375/247626
+
+################################################################################
+
+
+
+################################################################################
 # 2-23-17: #####################################################################
 ################################################################################
 • Account activation routing.

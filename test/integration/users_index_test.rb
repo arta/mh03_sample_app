@@ -36,7 +36,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     all_users = User.all.count
     assert_equal all_users, 34
     activated_users = assigns( :users )
-    assert_equal activated_users.count, 33
+    assert_equal activated_users.count, 33 # 2-27-17 dev't note on why this works 
     first_page_of_all_users = User.page( 1 )
     assert first_page_of_all_users.pluck( :name ).include?( @not_activated.name )
     first_page_of_users = User.where( activated:true ).page( 1 )
