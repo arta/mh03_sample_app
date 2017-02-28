@@ -1,6 +1,17 @@
 ################################################################################
 # 2-27-17: #####################################################################
 ################################################################################
+• Generating controller with actions:
+
+: Why only `new` and `edit` when we need `create` and `update` too?
+
+    $ rails g controller PasswordResets new edit
+  
+: Generating controller with specific actions generates identically named views.
+: Since `create` and `update` don't use own views, don't bother generating them.
+  : It's more straightforward to type those actions in the controller later.
+
+################################################################################
 • Check Sendgrid automatic settings on heroku.
 : First set it up:
 
