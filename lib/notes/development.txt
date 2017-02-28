@@ -60,9 +60,14 @@
   : instead of the intuitively expected RESTful:
   
       PATCH /account_activations/:id
+      
+      # would be named: update_account_activation_path( @user.activation_token ) 
 
-  : Because links in emails can only be GET
-    : because there's no JS available in emails
+  : GET instead of PATCH:
+    : links in emails can only be GET; there's no JS available in emails
+
+  : .._url instead of .._path:
+    : link/reference from email must be complete/absolute (not relative) 
   
 • The Rails' way of setting URL query parameters (reminder):
 
