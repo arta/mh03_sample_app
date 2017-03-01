@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def email_password_reset_link
-    
+    UserMailer.password_reset( self ).deliver_now
   end
 
   private
