@@ -1,6 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :set_user,                    only: [:edit, :update]
   before_action :authenticate_activated_user, only: [:edit, :update]
+  before_action :check_expiration,            only: [:edit, :update]
 
   # GET /password_resets/new
   #   html:   <a href='/password_resets/new'>..</a>
@@ -52,6 +53,30 @@ class PasswordResetsController < ApplicationController
   #             =f.password_field :password
   #             =f.password_field :password_confirmation
 
+  # PATCH /password_resets/:id
+  #   html:   <form action='/password_resets/reset_token', method='patch'..>
+  #             <input name='email', type='hidden', ..>
+  #             <input name='user[password]', ..>
+  #             <input name='user[password_confirmation]', ..>
+  #   rails:  =form_for @user, url: password_reset_path( params[:id] ) ..
+  #             =f.hidden_field_tag :email, @user.email
+  #             =f.password_field :password
+  #             =f.password_field :password_confirmation
+  #   router: patch '/password_resets/:id', to: 'password_resets#update'
+  def update
+    if params[:user][:password].empty? # User password validation allows nil
+      @user.errors.add( :password, "can't be empty" )
+      render 'edit'
+    elsif @user.update( user_params )
+      log_in @user
+      flash[:success] = "Password has been reset."
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+  # No explicit view; redirect_to|render @user|'edit'
+
   private
     def set_user
       @user = User.find_by email: params[:email]
@@ -61,5 +86,16 @@ class PasswordResetsController < ApplicationController
       redirect_to root_path unless @user &&
         @user.activated? &&
         @user.authenticated?( :reset, params[:id] )
+    end
+
+    def check_expiration
+      if @user.password_reset_expired?
+        flash[:danger] = "Password reset has expired."
+        redirect_to new_password_reset_url
+      end
+    end
+
+    def user_params
+      params.require( :user ).permit( :password, :password_confirmation )
     end
 end
