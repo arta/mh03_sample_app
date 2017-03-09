@@ -1,4 +1,34 @@
 ################################################################################
+# 3-9-17: ######################################################################
+• Actual malleability of the Rails components conventionally tied together
+
+    controller :: action :: @model
+    =>
+    view :: form_for @model, url: some_path ...
+
+: Handling of user password resets offers a handy illustration / reminder of
+  : how independent these components can be, when needed, in
+  : contrast to the routine - the Rails' Way instilled - tying them together via
+    naming conventions (superbly convenient, indeed, for standard cases), and of
+  : the surprisingly simple, flexible expressiveness hidden therein !!!
+
+  : PasswordResetsController :: edit
+      @user
+      ( vs the instinctively thought of @password_reset, or no variable at all )
+
+    : password_resets/edit.html.erb
+        =form_for @user, url: 'password_reset_path( params[:id] )' ...
+
+        ( vs the instinctively thought of
+          =form_for @password_reset ...
+          ... or rather:
+          =form_for :password_reset, url: 'password_reset_path( params[:id] )'
+
+################################################################################
+
+
+
+################################################################################
 # 2-27-17: #####################################################################
 ################################################################################
 • Generating controller with actions:
