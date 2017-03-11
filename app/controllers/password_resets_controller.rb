@@ -23,10 +23,12 @@ class PasswordResetsController < ApplicationController
   #             ...
   #   router: post '/password_resets', to: 'password_resets#create'
   def create
-    user = User.find_by( email: params[:password_reset][:email].downcase )
-    if user
-      user.create_reset_digest
-      user.email_password_reset_link
+    @user = User.find_by( email: params[:password_reset][:email].downcase )
+    # Must be @user (not user) for password resets integration test 
+    # assigns( :user ) to work
+    if @user
+      @user.create_reset_digest
+      @user.email_password_reset_link
       flash[:info] = "Email sent with password reset instructions"
       redirect_to root_path
     else
