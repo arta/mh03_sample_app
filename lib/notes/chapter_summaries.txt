@@ -1,4 +1,17 @@
 ################################################################################
+12. Password Reset #############################################################
+
+• Like sessions and account activations, password resets can be modeled as 
+  a resource despite not being Active Record objects.
+• Password resets use a generated token to create a unique URL for resetting 
+  passwords.
+• Password resets use a hashed reset digest to securely identify valid reset 
+  requests.
+
+################################################################################
+
+
+################################################################################
 11. Account activation #########################################################
 
 • Like sessions, account activations can be modeled as a resource despite not 
