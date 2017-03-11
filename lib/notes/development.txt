@@ -1,6 +1,27 @@
 ################################################################################
+# 3-11-17: #####################################################################
+• Malleability of Rails components II:
+: continuing with the theme from the previous note
+: internalize this
+
+  : PasswordResetsController :: update
+      @user
+      ( vs the instinctively thought of @password_reset, or no variable at all )
+
+    : note the use of:
+
+      a) @user.errors.add()      !!!!!
+
+      b.1) renderers implementing the conventional flow
+      b.2) `rediret_to @user` passing control over to a different controller
+
+################################################################################
+
+
+
+################################################################################
 # 3-9-17: ######################################################################
-• Actual malleability of the Rails components conventionally tied together
+• Actual malleability of Rails components conventionally tied together
 
     controller :: action :: @model
     =>

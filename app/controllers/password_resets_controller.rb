@@ -48,10 +48,6 @@ class PasswordResetsController < ApplicationController
   #             <input name='email', type='hidden', ..>
   #             <input name='user[password]', ..>
   #             <input name='user[password_confirmation]', ..>'
-  #   rails:  =form_for @user, url: password_reset_path( params[:id] ) ..
-  #             =f.hidden_field_tag :email, @user.email
-  #             =f.password_field :password
-  #             =f.password_field :password_confirmation
 
   # PATCH /password_resets/:id
   #   html:   <form action='/password_resets/reset_token', method='patch'..>
