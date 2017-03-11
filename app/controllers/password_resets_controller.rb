@@ -67,6 +67,9 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     elsif @user.update( user_params )
       log_in @user
+      # add security for pwd resetting on public computers, makes impossible to
+      # back-track via browser's back button to still unexpired reset link
+      @user.update_attribute :reset_digest, nil
       flash[:success] = "Password has been reset."
       redirect_to @user
     else
