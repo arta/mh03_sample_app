@@ -10,6 +10,12 @@
   : vs. the idiomatically incorrect:
 
       @micropost = Micropost.new( user_id: @user.id, content: "Lorem ipsum" )
+      
+• ... and of locating associated objects:
+
+      @micropost = @user.microposts.find ...
+
+      @microposts = @user.microposts.where ...
 
 ################################################################################
 • Association validation:
