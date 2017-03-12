@@ -1,5 +1,28 @@
 ################################################################################
 # 3-11-17: #####################################################################
+################################################################################
+• Composite db index:
+
+      add_index :microposts, [:user_id, :created_at]
+
+  : https://www.tutorialspoint.com/sql/sql-indexes.htm
+    
+    "A composite index is an index on two or more columns of a table. The basic 
+    syntax is as follows:
+
+      CREATE INDEX index_name ON table_name (column1, column2);
+
+    Whether to create a single-column index or a composite index, take into 
+    consideration the column(s) that you may use very frequently in a query's 
+    WHERE clause as filter conditions.
+
+    Should there be only one column used, a single-column index should be 
+    the choice. Should there be two or more columns that are frequently used in 
+    the WHERE clause as filters, the composite index would be the best choice."
+
+  : see also http://stackoverflow.com/a/1049392/247626
+
+################################################################################
 • Malleability of Rails components II:
 : continuing with the theme from the previous note
 : internalize this
