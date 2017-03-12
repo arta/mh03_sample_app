@@ -1,4 +1,37 @@
 ################################################################################
+# 3-12-17: #####################################################################
+• Association validation:
+
+  : Declaring in a Model:
+  
+      belongs_to :another_model
+    
+  : automatically creates and runs: 
+  
+      validates :another_model, presence:true       # or some equivalent
+      
+  : as can be seen in the console:
+  
+      m = Model.new
+      m.valid? #=> false
+      m.errors.messages #=> { :another_model => ["must exist"] }
+
+  : Validating presence manualy is then redundant:
+
+      class Micropost < ApplicationRecord
+        belongs_to :user
+        validates :user_id, presence: true # Redundant. 
+                                           # Declaring `belongs_to :user` runs
+                                           #  `validates :user, presence: true`
+                                           #  or some equivalent
+        ...
+      end
+
+################################################################################
+
+
+
+################################################################################
 # 3-11-17: #####################################################################
 ################################################################################
 • Composite db index:
