@@ -1,5 +1,17 @@
 ################################################################################
 # 3-12-17: #####################################################################
+################################################################################
+• Idiomatically preferred way of constructing associated objects.
+
+  : Construct through the associotion, or on the association: 
+
+      @micropost = @user.microposts.new( content: "Lorem ipsum" )
+
+  : vs. the idiomatically incorrect:
+
+      @micropost = Micropost.new( user_id: @user.id, content: "Lorem ipsum" )
+
+################################################################################
 • Association validation:
 
   : Declaring in a Model:
