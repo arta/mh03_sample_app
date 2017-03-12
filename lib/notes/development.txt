@@ -1,6 +1,24 @@
 ################################################################################
 # 3-12-17: #####################################################################
 ################################################################################
+• Stabby lambda.
+  
+      >> -> { puts 'foo' } 
+      => #<Proc:0x007fab938d0108@(irb):1 (lambda)>
+    
+  : an anonymous function (a function created without a name). The stabby lambda 
+    -> takes in a block and returns a Proc, which can then be evaluated with 
+    the call method.
+    
+      >> -> { puts 'foo' }.call 
+      foo
+      => nil
+
+: Offers great expressiveness. In Rails it is used, for example, in scopes:
+
+    default_scope -> { order( created_at: :desc ) }
+
+################################################################################
 • Idiomatically preferred way of constructing associated objects.
 
   : Construct through the associotion, or on the association: 
