@@ -55,15 +55,6 @@ class UsersController < ApplicationController
         :password, :password_confirmation )
     end
 
-    def authenticate_user
-      unless current_user.present?
-        store_location
-        flash[:danger] = 'Please, log in.'
-        redirect_to login_path
-      end
-    end
-    alias_method :logged_in_user, :authenticate_user
-
     def authorize_user
       @user = User.find params[:id]
       redirect_to root_path unless current_user?( @user )
