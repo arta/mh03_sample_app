@@ -1,5 +1,12 @@
 ################################################################################
 # 3-14-17: #####################################################################
+################################################################################
+• Microposts routes and controller:
+: we'll resource microposts principally through /home and /users/show pages
+: so we won’t need microposts actions like new or edit
+: we’ll need only create and destroy
+
+################################################################################
 • assert_match vs. assert_select:
 
   : If all we care about is that the number of microposts appears somewhere on 
