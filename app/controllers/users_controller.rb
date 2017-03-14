@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    @microposts = @user.microposts.page params[:page]
     redirect_to root_path unless @user.activated?
   end
 
