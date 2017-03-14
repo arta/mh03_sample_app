@@ -1,4 +1,24 @@
 ################################################################################
+# 3-14-17: #####################################################################
+• assert_match vs. assert_select:
+
+  : If all we care about is that the number of microposts appears somewhere on 
+    the page, we can look for a match as follows:
+      
+      assert_match @user.microposts.count.to_s, response.body
+      
+  : It's a much less specific assertion than assert_select:
+        
+      assert_select 'h3', "#{@user.microposts.count} Microposts"
+  
+  : using assert_match in this context doesn’t require us to indicate which 
+    HTML tag we’re looking for.
+
+################################################################################
+  
+
+
+################################################################################
 # 3-12-17: #####################################################################
 ################################################################################
 • Stabby lambda.
