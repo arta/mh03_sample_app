@@ -1,4 +1,32 @@
 ################################################################################
+# 3-16-17: #####################################################################
+• Microposts as resources and as User attributes:
+
+: microposts#create and microposts#destroy are resources, and are routed.
+
+: but the equivalents of microposts#index, #new, and #show are not,
+  so how to think of them?
+
+  : "show" and "index":
+    : since these exist only in association with users,
+    : then think of them as user's attrbitutes (not a RESTful resource)
+
+        @user.microposts.all
+        @user.microposts.where( attrib: value )
+
+        @user.microposts.find( 1 )
+        @user.microposts.last
+
+  : "new":
+    : similar: think of Micropost.new as an auxilary constructor of a user:
+
+        current_user.microposts.new
+
+################################################################################
+
+
+
+################################################################################
 # 3-14-17: #####################################################################
 ################################################################################
 • Microposts routes and controller:

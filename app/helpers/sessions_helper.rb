@@ -1,4 +1,5 @@
 module SessionsHelper
+  # included in ApplicationController for app-wide availability
   
   def log_in( user )
     session[:user_id] = user.id
