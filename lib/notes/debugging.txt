@@ -1,4 +1,69 @@
 ################################################################################
+# 3-17-17: #####################################################################
+• WHAT: 
+  : ActionView::MissingTemplate in Microposts#create
+  : Missing partial microposts/_home_logged_in, application/_home_logged_in ...
+
+• WHEN: posting invalid micropost
+
+• WHY: 
+  : posting micropost is routed to microposts_controller
+  : per microposts#create instructions, creating invalid microposts
+    renders static_pages/home, which in turn
+    renders _home_logged_in, which, by convention, Rails attempts to locate in
+    views/microposts/.. and, of course, won't find it there
+
+• SOLUTION:
+
+    =render 'static_pages/home_logged_in'
+
+################################################################################
+• resolving the above unearths another bug:
+
+• WHAT: 
+  : NoMethodError in Microposts#create
+  : undefined method `any?' for nil:NilClass
+
+  .. in views/microposts/_feed.html.erb, line 1:
+  
+    <% if @feed_items.any? %>
+
+• WHEN: posting invalid micropost
+
+• WHY: microposts#create doesn't set @feed_items
+
+• SOLUTION: set @feed_items in microposts#create
+
+    @feed_items = current_user.feed.page params[:page]
+
+################################################################################
+• resolving the above unearths another bug:
+
+• WHAT: 
+  : No route matches [GET] "/microposts"
+
+• WHEN:
+  : upon posting of invalid micropost and
+  : paginating to the next page of the user's microposts feed
+  : on the user's home page with the invalid micropost
+
+• WHY:
+  : posting invalid micropost passes the app's control to microposts_controller
+  : by default, will_paginate infers controller from the request's controller
+  : so, will_paginate will now try to get /microposts?page=2
+  : but since there is no GET '/microposts' routed, the app crashes
+
+• SOLUTION:
+  : tell will_paginate the intended controller/action to get:
+  
+    =will_paginate @feed_items, 
+      params: { controller: :static_pages, action: :home }
+
+################################################################################
+
+
+
+################################################################################
 # 2-25-17: #####################################################################
 • WHAT:
 
