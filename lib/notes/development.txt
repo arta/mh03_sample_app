@@ -1,4 +1,27 @@
 ################################################################################
+# 3-17-17: #####################################################################
+• Rails magic is even more magical:
+
+: Tying collection in @instance_variable with a partial:
+
+    class StaticPagesController < ApplicationController
+      def home
+        @feed_items = current_user.feed.page params[:page]
+      end
+      # Implicitly renders /static_pages/home.html.erb 
+      #   where we can `=render @feed_items`
+      #     which implicitly renders /microposts/_micropost.html.erb
+      #     (which has access to a local variable 'micropost')
+      #     because @feed_items is a collection of Micropost instances
+      #     •  the collection need not be named @microposts after all
+      #     •  the name tying is not (any longer?) as tight as claimed in 
+      #        "that" screencast
+      
+################################################################################
+
+
+
+################################################################################
 # 3-16-17: #####################################################################
 • Microposts as resources and as User attributes:
 

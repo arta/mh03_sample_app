@@ -66,6 +66,11 @@ class User < ApplicationRecord
     reset_at < 2.hours.ago # read as: "reset earlier than 2 hours ago"
   end
 
+  def feed
+    # a proto-feed:
+    microposts
+  end
+
   private
     def downcase_email
       email.downcase!
