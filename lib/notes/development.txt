@@ -1,5 +1,27 @@
 ################################################################################
 # 3-18-17: #####################################################################
+################################################################################
+• `find` and `find_by` return different results on fail
+
+  : Micropost.find params[:id] 
+  
+      => ActiveRecord::RecordNotFound: Couldn't find Micropost with 'id'=100 ..
+
+      : an exception, i.e. app crashes
+
+  : Micropost.find_by id: params[:id]
+
+      => nil
+  
+  : So, when we are simultaneously authorizing user while finding her microposts,
+    we must use find_by so that we can work with the possibly returned nil.
+
+    In microposts_controller :: authorize_user:
+
+        @micropost = current_user.microposts.find_by id: params[:id]
+        rediret_to root_path if @microposts.nil?
+
+################################################################################
 • Comparing Ruby objects such as collections:
 : use `==` operator 
   
