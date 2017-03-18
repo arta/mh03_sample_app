@@ -1,5 +1,29 @@
 ################################################################################
 # 3-18-17: #####################################################################
+################################################################################
+• WHAT: flash messages do not display
+
+• ISSUE:
+  : this works:
+    
+      flash[:success] = 'User created'
+      redirect_to @user
+
+  : this doesn't:
+
+      redirect_to @user, success: 'User created'
+      
+• SOLUTION: to use the one-line syntax:
+  : either stick with Rails' standard flash keys:
+
+      redirect_to @user, notice: 'User created'
+      redirect_to @user, alert: 'User created'
+
+  : or pass the entire flash:
+
+      redirect_to @user, flash: { success: 'User created' }
+
+################################################################################
 • WHAT: No route matches [PATCH] "/signup"
 
 • WHEN: updating a user
