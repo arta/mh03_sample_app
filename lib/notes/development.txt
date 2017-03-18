@@ -1,4 +1,25 @@
 ################################################################################
+# 3-18-17: #####################################################################
+• Comparing Ruby objects such as collections:
+: use `==` operator 
+  
+  > u = User.first
+  > m1 = Micropost.where user_id: u.id
+  > m2 = u.microposts
+  > m3 = u.feed
+  > m1 == m2 #=> true
+  > m1 == m3 #=> true
+  > m2 == m3 #=> true
+
+: Also, recall from RubyMonk that `==` can be overridden for a succinct, 
+  expressive code:
+  https://rubymonk.com/learning/books/4-ruby-primer-ascent/chapters/45-more-classes/lessons/105-equality_of_objects
+
+################################################################################
+
+
+
+################################################################################
 # 3-17-17: #####################################################################
 • Rails magic is even more magical:
 
