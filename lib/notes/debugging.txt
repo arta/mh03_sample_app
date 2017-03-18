@@ -1,4 +1,30 @@
 ################################################################################
+# 3-18-17: #####################################################################
+• WHAT: No route matches [PATCH] "/signup"
+
+• WHEN: updating a user
+
+• WHY: 
+  : apparently, on 2-23-17 I changed:
+
+      = form_for @user do ..
+      
+  : to:
+
+      = form_for @user, url: signup_path do ..
+
+  : WTF ?! :)
+  : I recall returning to exercises for invalid users signup test (in 7.3.4)
+    I thought I missed. Still ... I wish I saw leaving this change after 
+    redoing the exercises as an obviously obvious error.
+
+• SOLUTION: revert, along with all the relevant tests
+
+################################################################################
+
+
+  
+################################################################################
 # 3-17-17: #####################################################################
 • WHAT: 
   : ActionView::MissingTemplate in Microposts#create

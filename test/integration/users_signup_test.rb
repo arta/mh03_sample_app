@@ -11,7 +11,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test "invalid signup information" do
     get signup_path
     assert_no_difference 'User.count' do
-      post signup_path, params: { user: { name:  "",
+      post users_path, params: { user: { name:  "",
                                          email: "user@invalid",
                                          password:              "foo",
                                          password_confirmation: "bar" } }
@@ -21,7 +21,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
   test 'invalid email error message' do
     get signup_path
-    post signup_path, params: { user: { name: 'Valid Name',
+    post users_path, params: { user: { name: 'Valid Name',
                                        email: 'invalid@email',
                                        password: 'validpswd',
                                        password_confirmation: 'validpswd' } }
@@ -66,6 +66,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   
   test 'signup post route exists' do
     get signup_path
-    assert_select "form[action=?]", signup_path
+    assert_select "form[action=?]", users_path
   end
 end
