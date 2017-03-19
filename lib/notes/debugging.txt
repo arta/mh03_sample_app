@@ -34,7 +34,7 @@
 
 • FIX:
         ...
-        micropost = assigns( :micropost )   # to access after follow_redirect!
+        micropost = assigns( :micropost )   # to access it after follow_redirect!
         assert micropost.picture?
         assert_redirected_to root_url
         follow_redirect!                    #<= empties assigns !
@@ -103,6 +103,7 @@
   
 ################################################################################
 # 3-17-17: #####################################################################
+################################################################################
 • WHAT: 
   : ActionView::MissingTemplate in Microposts#create
   : Missing partial microposts/_home_logged_in, application/_home_logged_in ...

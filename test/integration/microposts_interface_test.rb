@@ -21,7 +21,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_difference 'Micropost.count', 1 do
       post microposts_path, params: { micropost: { content: content, picture: picture } }
     end
-    micropost = assigns( :micropost )   # to access after follow_redirect!
+    micropost = assigns( :micropost )   # to access it after follow_redirect!
     assert micropost.picture?
     assert_redirected_to root_url
     follow_redirect!                    #<= empties assigns !
