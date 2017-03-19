@@ -1,4 +1,57 @@
 ################################################################################
+# 3-19-17: #####################################################################
+• WHAT:
+    Nokogiri::CSS::SyntaxError:           Nokogiri::CSS::SyntaxError: unexpected 
+    '?' after 'equal'
+    test/integration/microposts_interface_test.rb:29:in `block in <class:Micropo
+    stsInterfaceTest>'
+
+• WHEN: Testing that micropost picture is uploaded and displayed:
+        ...
+        assert assigns( :micropost ).picture?
+        assert_redirected_to root_url
+        follow_redirect!
+        assert_match content, response.body
+    29  assert_select "img[src=?]", assigns( :micropost ).picture.url
+        ...
+
+• WHY:
+  : Couldn't find any help online ... and what an unhelpful error message ...
+  : But then I noticed the follow_redirect!
+  : Again, REMEMBER that:
+    
+      follow_redirect! 
+  
+  : erases assigns()
+  
+  : The unhelpful error message makes sense now:
+    : since: assigns( :micropost ).picture.url returns nil
+    : then: Nokogiri now expects: 
+                assert_select 'img[src]'
+            : not
+                assert_select 'img[src=?]', ...
+    : (and, btw: assert_select 'img[src]' #<= is Green)
+
+• FIX:
+        ...
+        micropost = assigns( :micropost )   # to access after follow_redirect!
+        assert micropost.picture?
+        assert_redirected_to root_url
+        follow_redirect!                    #<= empties assigns !
+        assert_match content, response.body
+    29  assert_select "img[src=?]", micropost.picture.url
+        ...
+
+• NOTE:
+  : so what exactly does assigns( :micropost ) hold after follow_redirect! ?
+  : it cannot be a nil, since it responds to .picture
+  : hm ..
+
+################################################################################
+
+
+
+################################################################################
 # 3-18-17: #####################################################################
 ################################################################################
 • WHAT: flash messages do not display
