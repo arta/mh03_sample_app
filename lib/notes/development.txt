@@ -1,6 +1,13 @@
 ################################################################################
 # 3-18-17: #####################################################################
 ################################################################################
+• Add picture upload to microposts:
+
+    $ rails g uploader picture
+    $ rails g migration add_picture_to_microposts picture:string
+    $ rails db:migrate
+
+################################################################################
 • `find` and `find_by` return different results on fail
 
   : Micropost.find params[:id] 
