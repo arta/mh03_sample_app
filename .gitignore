@@ -22,3 +22,6 @@
 
 # Ignore Spring files.
 /spring/*.pid
+
+# Ignore carrierwave uploads to local file system.
+/public/uploads/*
