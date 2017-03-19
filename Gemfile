@@ -43,6 +43,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick', '~> 4.6', '>= 4.6.1'
+gem 'fog', '~> 1.40'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
 gem 'faker', '~> 1.7', '>= 1.7.3'
