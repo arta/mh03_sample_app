@@ -32,4 +32,27 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     get user_path( users( :archer ) )
     assert_select 'a', text: 'delete', count: 0
   end
+
+  test 'home page aside micropost count' do
+    log_in_as @user
+    get root_path
+    assert_select 'section.user_info'
+    assert_match '34 microposts', response.body
+    # Delete 1 of 2 microposts
+    archer = users( :archer )
+    log_in_as archer
+    get root_path
+    assert_select 'section.user_info > h1', 'Sterling Archer'
+    delete micropost_path( archer.microposts.first.id )
+    follow_redirect!
+    assert_match '1 micropost', response.body
+    # Create 1st micropost
+    malory = users( :malory )
+    log_in_as( malory )
+    get root_path
+    assert_match "0 microposts", response.body
+    malory.microposts.create!( content: "A micropost" )
+    get root_path
+    assert_match '1 micropost', response.body
+  end
 end
