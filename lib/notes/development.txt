@@ -1,5 +1,21 @@
 ################################################################################
 # 3-20-17: #####################################################################
+################################################################################
+• Skip carrierwave image resizing in tests:
+
+  : According to M.H. tests may give a confusing error message.
+  : If so, fix by:
+  
+      config/initializers/skip_image_resizing.rb
+      if Rails.env.test?
+        CarrierWave.configure do |config|
+          config.enable_processing = false
+        end
+      end
+
+  : My tests run fine as of now though.
+  
+################################################################################
 • Image validation:
   : appears done well here, still ...
   : maybe a complex issue across browsers, e.g. emptying file field with errors? 
