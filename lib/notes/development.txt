@@ -1,6 +1,13 @@
 ################################################################################
 # 3-20-17: #####################################################################
 ################################################################################
+• Set up config vars on Heroku:
+
+    $ heroku config:set RACKSPACE_USERNAME=my_rackspace_username
+    $ heroku config:set RACKSPACE_API_KEY=my_rackspace_api_key
+    $ heroku config:set RACKSPACE_CONTAINER=my_rackspace_container
+
+################################################################################
 • Skip carrierwave image resizing in tests:
 
   : According to M.H. tests may give a confusing error message.
