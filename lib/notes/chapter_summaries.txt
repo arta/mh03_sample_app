@@ -1,4 +1,33 @@
 ################################################################################
+13. User microposts ############################################################
+
+• Microposts, like Users, are modeled as a resource backed by an Active Record 
+  model.
+• Rails supports multiple-key indices (i.e. composite indices)
+• We can model a user having many microposts using the has_many and belongs_to 
+  methods in the User and Micropost models, respectively.
+• The has_many/belongs_to combination gives rise to methods that work through 
+  the association.
+• The code user.microposts.new(...) returns a new Micropost object automatically
+  associated with the given user.
+• Rails supports default ordering via default_scope.
+• Scopes take anonymous functions as arguments.
+• The dependent: :destroy option causes objects to be destroyed at the same time
+  as associated objects.
+• Pagination and object counts can both be performed through associations, 
+  leading to automatically efficient code.
+• Fixtures support the creation of associations.
+• It is possible to pass variables to Rails partials.
+• The where method can be used to perform Active Record selections.
+• We can enforce secure operations by always creating and destroying dependent 
+  objects through their association.
+• We can upload and resize images using CarrierWave.
+
+################################################################################
+
+
+
+################################################################################
 12. Password Reset #############################################################
 
 • Like sessions and account activations, password resets can be modeled as 
@@ -9,6 +38,7 @@
   requests.
 
 ################################################################################
+
 
 
 ################################################################################
