@@ -1,4 +1,37 @@
 ################################################################################
+# 3-21-17: #####################################################################
+• Naming of relationships 
+
+• The joint table / model of users in their roles as followed and followers:
+
+  : relationships
+      follower_id
+      followed_id
+
+  : Relationship
+      belongs_to :follower, class_name: 'User'
+      belongs_to :followed, class_name: 'User'
+
+• The users table
+
+  : users (no new columns)
+
+  : User
+    # User (follower) is following these users (following):
+      has_many :active_relationships, foreign_key: :follower_id, class_name: 'User'
+      has_many :following, through: :active_relationships, source: :followed
+
+    # User (followed) is followed by these users (followers):
+      has_many :passive_relationships, foreign_key: :followed_id, class_name: 'User'
+      has_many :followers, through: :passive_relationships
+
+    : note: `following` replaces `followeds` since that looks and sounds awkward
+
+################################################################################
+
+
+
+################################################################################
 # 3-20-17: #####################################################################
 ################################################################################
 • Set up config vars on Heroku:
