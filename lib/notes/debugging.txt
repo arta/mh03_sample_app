@@ -1,4 +1,56 @@
 ################################################################################
+# 3-20-17: #####################################################################
+• WHAT:
+    ...
+    remote: -----> Detecting rake tasks
+    remote: -----> Preparing app for Rails asset pipeline
+    remote:        Running: rake assets:precompile
+    remote:        rake aborted!
+    remote:        ArgumentError: Missing required arguments: rackspace_username
+    remote:        /tmp/build_a047d309bddebe3c81785ed050121ac7/vendor/bundle/rub
+    y/2.2.0/gems/fog-core-1.43.0/lib/fog/core/service.rb:244:in `validate_option
+    s'
+    ...
+
+• WHEN: 
+
+    $ git push heroku
+  
+  : after having configured carrierwave for heroku
+  : which is what lead me astray from the error location
+  : (= I looked for error somewhere in the innards of the configuration itself )
+
+• WHY: a typo !!! ... a typo cost me almost 2 hours
+
+• FIX:
+
+      :rackspace_username => ENV['RACKSPACE_USERNAME'],
+  
+  : instead of
+  
+      :rackspace_usernmae => ENV['RACKSPACE_USERNAME'],
+
+• NOTE:
+
+  : again, and again, ...
+  : ... read the error message
+  : ... THINK methodically ...
+  : ... step by step
+  : ... INFER where the error message points to
+  : ... start at the beginning, because that's where the error most likely is
+  : ... don't jump too far ahead (as to what else may be wrong ... )
+  : like here, it was a typo in the variable name, which, of course, is 
+    what the error messages indicated:
+    
+      ArgumentError: Missing required arguments: rackspace_username
+
+  : see?! ... missing argument ... rackspace_username
+
+################################################################################
+
+  
+
+################################################################################
 # 3-19-17: #####################################################################
 • WHAT:
     Nokogiri::CSS::SyntaxError:           Nokogiri::CSS::SyntaxError: unexpected 
