@@ -2,6 +2,9 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
 
   has_many :microposts, dependent: :destroy
+  has_many :active_relationships, foreign_key: :follower_id,
+                                  class_name:  'Relationship',
+                                  dependent:   :destroy
   has_secure_password
 
   validates :name, presence: true, length: { maximum: 50 }
