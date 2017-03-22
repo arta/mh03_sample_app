@@ -1,4 +1,32 @@
 ################################################################################
+# 3-22-17: #####################################################################
+• WHAT:
+
+    ERROR["test_should_require_a_follower_id", RelationshipTest, 0.4849288529949
+    263]
+    test_should_require_a_follower_id#RelationshipTest (0.48s)
+    ActiveRecord::RecordNotUnique:         ActiveRecord::RecordNotUnique: SQLite
+    3::ConstraintException: UNIQUE constraint failed: relationships.follower_id,
+    relationships.followed_id: INSERT INTO "relationships" ("follower_id", "foll
+    owed_id", "created_at", "updated_at", "id") VALUES (1, 1, '2017-03-22 20:03:
+    11.436631', '2017-03-22 20:03:11.436631', 298486374)
+
+• WHEN: pasting relationship tests and running them
+
+• WHY: 
+  : not unique follower and followed in a relationship
+  : where?1
+  : in fixtures !!!
+  
+• FIX: 
+  : remove the Rails' generated relationships fixtures 
+  : right now we're using our own @relationship setup in the test
+
+################################################################################
+
+
+
+################################################################################
 # 3-20-17: #####################################################################
 • WHAT:
     ...
