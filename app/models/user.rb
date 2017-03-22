@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :active_relationships, foreign_key: :follower_id,
                                   class_name:  'Relationship',
                                   dependent:   :destroy
+  has_many :following, through: :active_relationships, source: :followed
   has_secure_password
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -72,6 +73,18 @@ class User < ApplicationRecord
   def feed
     # a proto-feed:
     microposts
+  end
+
+  def following?( other_user )
+    following.include? other_user
+  end
+
+  def follow( other_user )
+    following << other_user
+  end
+
+  def unfollow( other_user )
+    following.delete other_user
   end
 
   private

@@ -1,5 +1,33 @@
 ################################################################################
 # 3-22-17: #####################################################################
+################################################################################
+• User has_many through: 
+  : code like this would suffice:
+  
+      has_many :followeds, through: :active_relationships
+
+  : but, since instead of `followeds` (awkward word) we'll use `following`
+  
+      has_many :following, through: :active_relationships, source: :followed
+    
+  : we now must explicitly tell Rails that the source of the following array 
+    is the set of followed ids
+
+  : My note: the singular form (following) is not optimal ... 
+
+################################################################################
+• User has_many :active_relationships
+  : it's a standalone relationship, functional on its own
+
+    >> u1 = User.first
+    >> u2 = User.second
+    >> u1.active_relationships.create followed: u2
+    >> u1.active_relationships    #=> <ActiveRecord::Associations:: ...
+    >> ar = Relationship.first
+    >> ar.follower == u1          #=> true
+    >> ar.followed == u2          #=> true
+
+################################################################################
 • Uniqueness of composite index:
 
       add_index :relationships, [:follower_id, :followed_id], unique: true
