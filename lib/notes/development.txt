@@ -1,4 +1,21 @@
 ################################################################################
+# 3-22-17: #####################################################################
+• Uniqueness of composite index:
+
+      add_index :relationships, [:follower_id, :followed_id], unique: true
+
+  : enforces uniqueness on (follower_id, followed_id) pairs, so that a user 
+    can’t follow another user more than once. (Compare to the user.email 
+    uniqueness index and the micropost composite index). As we’ll see, our user
+    interface won’t allow this to happen, but adding a unique index arranges to 
+    raise an error if a user tries to create duplicate relationships anyway (for
+    example, by using a command-line tool such as curl).
+  
+################################################################################
+
+
+
+################################################################################
 # 3-21-17: #####################################################################
 • Naming of relationships 
 
