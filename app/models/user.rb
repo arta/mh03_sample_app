@@ -79,10 +79,10 @@ class User < ApplicationRecord
     microposts
   end
 
-  def following?( other_user )
+  def followed?( other_user )
     followed.include? other_user
   end
-  alias_method :followed?, :following?
+  alias_method :following?, :followed?
 
   def followed_by?( other_user )
     followers.include? other_user
