@@ -2,14 +2,14 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
 
   has_many :microposts, dependent: :destroy
-  has_many :active_relationships, class_name:  'Relationship',
-                                  foreign_key: :follower_id,
-                                  dependent:   :destroy
-  has_many :followed, through: :active_relationships
-  has_many :passive_relationships, class_name: 'Relationship',
-                                   foreign_key: :followed_id,
-                                   dependent: :destroy
-  has_many :followers, through: :passive_relationships
+  has_many :outfollowships, class_name:  'Followship',
+                            foreign_key: :follower_id,
+                            dependent:   :destroy
+  has_many :followees, through: :outfollowships
+  has_many :infollowships, class_name: 'Followship',
+                           foreign_key: :followee_id,
+                           dependent: :destroy
+  has_many :followers, through: :infollowships
   has_secure_password
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -80,7 +80,7 @@ class User < ApplicationRecord
   end
 
   def followed?( other_user )
-    followed.include? other_user
+    followees.include? other_user
   end
   alias_method :following?, :followed?
 
@@ -89,11 +89,11 @@ class User < ApplicationRecord
   end
 
   def follow( other_user )
-    followed << other_user
+    followees << other_user
   end
 
   def unfollow( other_user )
-    followed.delete other_user
+    followees.delete other_user
   end
 
   private

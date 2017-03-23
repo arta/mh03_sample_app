@@ -1,6 +1,63 @@
 ################################################################################
 # 3-23-17: #####################################################################
 ################################################################################
+• Changing Relationship to Followship
+  : erasing all previous notes on Relationship(s)
+  : except a partial from 3-22-17; keeping for reference
+
+• Data modelling of followships
+
+• The joint table / model of users in their roles as followed and followers:
+
+  : followships
+      follower_id
+      followee_id
+
+  : Followship
+      belongs_to :follower, class_name: 'User'
+      belongs_to :followee, class_name: 'User'
+
+• The users table
+
+  : users (no new columns)
+
+  : User
+      # User (follower) is following users (followees)
+      # User's outfollowships: follower is following followees
+      # User has many outfollowships with users as a follower:
+      has_many :outfollowships, class_name: 'Followship',
+                                foreign_key: :follower_id
+      # User has many users followees through her outfollowships:
+      has_many :followees, through: :outfollowships
+  
+      # User (followee) is followed by users (followers):
+      # User's infollowships: followee is followed by followers
+      # User has many infollowships with users as followee
+      has_many :infollowships, class_name: 'Followship', 
+                               foreign_key: :followee_id
+      # User has many users followers through her infollowships:
+      has_many :followers, through: :infollowships
+
+    : Note: specifying a class_name, then a foreign_key
+      : consider what are the specs used for:
+
+          SELECT * FROM class_name WHERE foreign_key ...
+          SELECT * FROM followships WHERE follower_id ...
+
+################################################################################
+• User has many followees through ... :
+
+      has_many :followees, through: :outfollowships
+
+  : visualize the cascading flow through tables/models this way:
+    : mental/visual setup:
+      : user follower has many followees users; she is following them
+    : how it's done in the db:
+      : user's and followee users' ids are in the `followships` table:
+        : user's own id is in             :follower_id column
+        : followee users' ids are in      :followee_id column
+
+################################################################################
 • Speeding up count (revisited, see 2-27-17 for detailed note on the topic):
 
     >> user.followers.count           #<= hits db
@@ -8,21 +65,28 @@
     >> user.followers.size            #<= - // -
 
 ################################################################################
-• Updating the 1st bullet from yesterday's note
-  : changing `has_many following` to a more precise `has_many followed`
-  : leaving the original for future reference purposes
+• User has_many :outfollowships
+  : it's a standalone relationship, functional on its own
 
-• User has many followed through ... :
+    >> u1 = User.first
+    >> u2 = User.second
+    >> u1.outfollowships.create( followee: u2 )
+    >> u1.outfollowships              #=> <ActiveRecord::Associations:: ...
+    >> of = Followship.first
+    >> of.follower == u1              #=> true
+    >> of.followee == u2              #=> true
 
-      has_many :followed, through: :active_relationships
+################################################################################
+• Uniqueness of composite index:
 
-  : visualize the cascading flow through tables/models this way:
-    : mental/visual setup:
-      : user follower has many followed users; she is following them
-    : how it's done in the db:
-      : followed users' ids are in the `relationships` table:
-        : user's own id is in             :follower_id column
-        : followed users' ids are in      :followed_id column
+      add_index :relationships, [:follower_id, :followee_id], unique: true
+
+  : enforces uniqueness on (follower_id, followee_id) pairs, so that a user 
+    can’t follow another user more than once. (Compare to the user.email 
+    uniqueness index and the micropost composite index). As we’ll see, our user
+    interface won’t allow this to happen, but adding a unique index arranges to 
+    raise an error if a user tries to create duplicate relationships anyway (for
+    example, by using a command-line tool such as curl).
 
 ################################################################################
 
@@ -59,70 +123,6 @@
   : no need to specify where the followers are (e.g. the :source)
   : Rails infers it from the name of the association:
     `:followers` -> ( `source: :follower` -> ) `:follower_id`
-
-################################################################################
-• User has_many :active_relationships
-  : it's a standalone relationship, functional on its own
-
-    >> u1 = User.first
-    >> u2 = User.second
-    >> u1.active_relationships.create followed: u2
-    >> u1.active_relationships    #=> <ActiveRecord::Associations:: ...
-    >> ar = Relationship.first
-    >> ar.follower == u1          #=> true
-    >> ar.followed == u2          #=> true
-
-################################################################################
-• Uniqueness of composite index:
-
-      add_index :relationships, [:follower_id, :followed_id], unique: true
-
-  : enforces uniqueness on (follower_id, followed_id) pairs, so that a user 
-    can’t follow another user more than once. (Compare to the user.email 
-    uniqueness index and the micropost composite index). As we’ll see, our user
-    interface won’t allow this to happen, but adding a unique index arranges to 
-    raise an error if a user tries to create duplicate relationships anyway (for
-    example, by using a command-line tool such as curl).
-  
-################################################################################
-
-
-
-################################################################################
-# 3-21-17: #####################################################################
-• Data modelling of relationships 
-
-• The joint table / model of users in their roles as followed and followers:
-
-  : relationships
-      follower_id
-      followed_id
-
-  : Relationship
-      belongs_to :follower, class_name: 'User'
-      belongs_to :followed, class_name: 'User'
-
-• The users table
-
-  : users (no new columns)
-
-  : User
-    # User's active relationships: follower is following followed
-    # User has many active relationships with users as a follower:
-      has_many :active_relationships, class_name: 'Relationship',
-                                      foreign_key: :follower_id
-    # User has many users followed through her active relationships:
-      has_many :followed, through: :active_relationships
-
-    # User's passive relationships: followed is followed by followers
-    # User has many passive relationships with users as followed
-      has_many :passive_relationships, class_name: 'Relationship', 
-                                       foreign_key: :followed_id
-    # User has many users followers through her passive relationships:
-      has_many :followers, through: :passive_relationships
-
-    : Note: specify class_name, then foreign_key
-      visualize what it is: SELECT * FROM relationships WHERE follower_id ...
 
 ################################################################################
 
