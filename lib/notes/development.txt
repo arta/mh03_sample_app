@@ -1,5 +1,13 @@
 ################################################################################
 # 3-23-17: #####################################################################
+################################################################################
+• Speeding up count (revisited, see 2-27-17 for detailed note on the topic):
+
+    >> user.followers.count           #<= hits db
+    >> user.followers.to_a.count      #<= no hit to db
+    >> user.followers.size            #<= - // -
+
+################################################################################
 • Updating the 1st bullet from yesterday's note
   : changing `has_many following` to a more precise `has_many followed`
   : leaving the original for future reference purposes
