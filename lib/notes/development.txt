@@ -1,4 +1,26 @@
 ################################################################################
+# 3-23-17: #####################################################################
+• Updating the 1st bullet from yesterday's note
+  : changing `has_many following` to a more precise `has_many followed`
+  : leaving the original for future reference purposes
+
+• User has many followed through ... :
+
+      has_many :followed, through: :active_relationships
+
+  : visualize the cascading flow through tables/models this way:
+    : mental/visual setup:
+      : user follower has many followed users; she is following them
+    : how it's done in the db:
+      : followed users' ids are in the `relationships` table:
+        : user's own id is in             :follower_id column
+        : followed users' ids are in      :followed_id column
+
+################################################################################
+
+
+
+################################################################################
 # 3-22-17: #####################################################################
 • User has many following through ... :
 
@@ -77,17 +99,22 @@
   : users (no new columns)
 
   : User
-    # User (follower) is following these users (following):
-      has_many :active_relationships, foreign_key: :follower_id, 
-                                      class_name: 'Relationship'
-      has_many :following, through: :active_relationships, source: :followed
+    # User's active relationships: follower is following followed
+    # User has many active relationships with users as a follower:
+      has_many :active_relationships, class_name: 'Relationship',
+                                      foreign_key: :follower_id
+    # User has many users followed through her active relationships:
+      has_many :followed, through: :active_relationships
 
-    # User (followed) is followed by these users (followers):
-      has_many :passive_relationships, foreign_key: :followed_id, 
-                                       class_name: 'Relationship'
+    # User's passive relationships: followed is followed by followers
+    # User has many passive relationships with users as followed
+      has_many :passive_relationships, class_name: 'Relationship', 
+                                       foreign_key: :followed_id
+    # User has many users followers through her passive relationships:
       has_many :followers, through: :passive_relationships
 
-    : note: `following` replaces `followeds` since that looks and sounds awkward
+    : Note: specify class_name, then foreign_key
+      visualize what it is: SELECT * FROM relationships WHERE follower_id ...
 
 ################################################################################
 
