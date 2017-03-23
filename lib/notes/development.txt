@@ -1,19 +1,34 @@
 ################################################################################
 # 3-22-17: #####################################################################
-################################################################################
-• User has_many through: 
+• User has many following through ... :
+
   : code like this would suffice:
-  
+
       has_many :followeds, through: :active_relationships
 
-  : but, since instead of `followeds` (awkward word) we'll use `following`
-  
+  : but, since instead of `followeds` (awkward word) we'll use `following`:
+
       has_many :following, through: :active_relationships, source: :followed
-    
-  : we now must explicitly tell Rails that the source of the following array 
-    is the set of followed ids
+
+  : we now must explicitly tell Rails that the source of the `following` users 
+    (their ids) is in the `followed` set (magic: Rails infers the `_id` part)
+  : visualize the relationship this way:
+    : setup: 
+      : user has many other users whom she is following 
+    : how it's done in the db:
+      : these other users' ids are in the `relationships` table
+      : in that table, their ids are stored in :followed_id column
+      : the user's own id in that table is stored in :follower_id column
 
   : My note: the singular form (following) is not optimal ... 
+
+• User has many followers through ...:
+
+      has_many :followers, through: :passive_relationships
+
+  : no need to specify where the followers are (e.g. the :source)
+  : Rails infers it from the name of the association:
+    `:followers` -> ( `source: :follower` -> ) `:follower_id`
 
 ################################################################################
 • User has_many :active_relationships
