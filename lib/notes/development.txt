@@ -1,6 +1,25 @@
 ################################################################################
 # 3-23-17: #####################################################################
 ################################################################################
+• Just to drive the (RESTful) point home:
+: A note on models, controllers, actions, views and routes 
+  as access points to our app's resources:
+
+  : At this point, the followship functionality (.follow, .unfollow, .followed?,
+    .followed_by? ... ) is implemented at the models' level
+    : and accessible through console
+  : If our visitors knew how to use a hypothetical online console connected to
+    our sample app, well, the app would be kind of done ... (*)
+  : But, we'll "be nice (we have no choice, of course) and":
+    : wrap the functionality in controllers'#actions' and
+    : route our visitors to our app's functionality through html pages 
+    : which represent our app's resources (controllers#actions/views)
+    : which represent our app's states and state transfers
+
+  (*) ... no, it would not: feeds need to be comleted and, above all, our 
+      authentication/authorization is implemented through controllers/views
+
+################################################################################
 • Changing Relationship to Followship
   : erasing all previous notes on Relationship(s)
   : except a partial from 3-22-17; keeping for reference
