@@ -1,0 +1,17 @@
+<%# ugly; either set in controllers or pass in as locals: {} %>
+<%# @user ||= current_user %>
+
+<div class="stats">
+  <a href="<%= followees_user_path( @user ) %>">
+    <strong id="following" class="stat"> <%# remember: change to `followees` %>
+      <%= @user.followees.count %> <%# use .size ? %>
+    </strong>
+    following
+  </a>
+  <a href="<%= followers_user_path( @user ) %>">
+    <strong id="followers" class="stat">
+      <%= @user.followers.count %> <%# use .size ? %>
+    </strong>
+    followers
+  </a>
+</div>
