@@ -13,6 +13,7 @@
   </aside>
 
   <div class='col-md-8'>
+    <%= render 'form_followship' if logged_in? %>
     <% if @user.microposts.any? %>
       <h3><%= pluralize( @user.microposts.count, 'Micropost') %></h3>
       <ol class='microposts'>
