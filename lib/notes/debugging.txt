@@ -1,4 +1,69 @@
 ################################################################################
+# 3-24-17: #####################################################################
+• WHAT:
+
+    ERROR["test_micropost_interface", MicropostsInterfaceTest, 2.625164596014656
+    ]
+    test_micropost_interface#MicropostsInterfaceTest (2.63s)
+    ActionView::Template::Error:         ActionView::Template::Error: No route m
+    atches {:action=>"followees", :controller=>"users", :id=>nil} missing requir
+    ed keys: [:id]
+            app/views/users/_stats.html.erb:5:in `_app_views_users__stats_html_e
+            rb__3292757885600713599_70875300'
+            app/views/static_pages/_home_logged_in.html.erb:7:in `_app_views_sta
+            tic_pages__home_logged_in_html_erb__145359829284989187_71789840'
+            app/views/static_pages/home.html.erb:2:in `_app_views_static_pages_h
+            ome_html_erb___3501610488896210199_72071520'
+            app/controllers/microposts_controller.rb:12:in `create'
+            test/integration/microposts_interface_test.rb:15:in `block (2 levels
+            ) in <class:MicropostsInterfaceTest>'
+            test/integration/microposts_interface_test.rb:14:in `block in <class
+            :MicropostsInterfaceTest>'
+
+  : I couldn't understand; although it is pretty clear, if read attentively:
+    : missing :id is specified
+    : microposts_controller#create is incriminated
+
+  : So, I replicated - posted an invalid micropost - in broswer and got:
+  
+    ActionController::UrlGenerationError in Microposts#create
+    Showing /home/ubuntu/workspace/mh03_sample_app/app/views/users/_stats.html.e
+    rb where line #5 raised:
+    No route matches {:action=>"followees", :controller=>"users", :id=>nil} miss
+    ing required keys: [:id]
+    Extracted source (around line #5):
+
+    4   <div class="stats">
+    5     <a href="<%= followees_user_path( @user ) %>">
+
+• WHEN: 
+  : saving /users/followship.html.erb with the pasted code
+  : i.e. misleadingly "unrelated" context
+  : there have been test errors in the last few saves which I didn't check since
+    not all code was pasted, so this might have popped up first in a context 
+    that would be more tellingly "related" (in quotes, since everything is 
+    related to everything else)
+
+• WHY:
+  : missing @user in hanging microposts#create upon failed micropost post
+  : needed for /users/_stats
+  : which was added there in this code pasting iteration :)
+
+• FIX:
+  class MicropostsController < ApplicationController
+    ...
+    def create
+      ...
+      if @micropost.save
+        ...
+      else
+        @user = current_user # for /users/_stats 
+        ...
+      end
+    end
+
+
+################################################################################
 # 3-22-17: #####################################################################
 • WHAT:
 

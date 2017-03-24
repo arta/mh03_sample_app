@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:index, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:index, :edit, :update, :destroy,
+                                           :followees, :followers]
   before_action :authorize_user,    only: [:edit, :update]
   before_action :authorize_admin,   only: :destroy
 
@@ -47,6 +48,20 @@ class UsersController < ApplicationController
     User.find( params[:id] ).destroy
     flash[:success] = "User deleted"
     redirect_to users_path
+  end
+
+  def followees
+    @user = User.find params[:id]
+    @users = @user.followees.page params[:page]
+    @title = 'Followees'
+    render 'followship'
+  end
+
+  def followers
+    @user = User.find params[:id]
+    @users = @user.followers.page params[:page]
+    @title = 'Followers'
+    render 'followship'
   end
 
   private

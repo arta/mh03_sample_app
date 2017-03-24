@@ -7,6 +7,7 @@ class MicropostsController < ApplicationController
     if @micropost.save
       redirect_to root_path, success: 'Micropost created.'
     else
+      @user = current_user # for /users/_stats 
       @feed_items = current_user.feed.page params[:page]
       render 'static_pages/home'
     end
