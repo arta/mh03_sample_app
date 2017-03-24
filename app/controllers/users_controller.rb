@@ -50,10 +50,12 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  # GET /users/1/following
+  #   see router and dev't note 3-24-17
   def followees
     @user = User.find params[:id]
     @users = @user.followees.page params[:page]
-    @title = 'Followees'
+    @title = 'Following'
     render 'followship'
   end
 

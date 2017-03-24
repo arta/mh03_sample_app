@@ -1,4 +1,29 @@
 ################################################################################
+# 3-24-17: #####################################################################
+• Translating a path: 
+  : how convenient
+  : all that needs to be done to have:
+
+      /users/1/following
+
+  : instead of:
+
+      /users/1/followees
+
+  : is to translate the path in the router:
+
+      resources :users do
+        get :followees, on: :member, path: :following
+
+  : nothing else changes / needs to be done
+    : i.e. it is "just" a path translation
+    : e.g. the path helper is still named `followees_user_path`
+
+################################################################################
+
+
+
+################################################################################
 # 3-23-17: #####################################################################
 ################################################################################
 • Re-seed with followships (remember, this destroyes existing db data):

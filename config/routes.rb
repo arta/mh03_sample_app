@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   resources :users do
-    member do
-      get :followees, :followers
-    end
+    get :followees, on: :member, path: :following #=> get `/users/1/following`
+    get :followers, on: :member
   end
   resources :account_activations, only: :edit
   resources :password_resets,     only: [:new, :create, :edit, :update]
