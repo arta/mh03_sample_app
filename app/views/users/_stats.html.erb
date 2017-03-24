@@ -3,7 +3,7 @@
 
 <div class="stats">
   <a href="<%= followees_user_path( @user ) %>">
-    <strong id="following" class="stat"> <%# remember: change to `followees` %>
+    <strong id="followees" class="stat">
       <%= @user.followees.count %> <%# use .size ? %>
     </strong>
     following

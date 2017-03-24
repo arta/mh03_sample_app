@@ -14,6 +14,8 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_select 'title', full_title( @user.name )
     assert_select 'h1', text: @user.name
     assert_select 'h1>img.gravatar'
+    assert_select '#followees', text: '0'
+    assert_select '#followers', text: '0'
     assert_match @user.microposts.count.to_s, response.body
     # Similar to the assert_match above, but much more specific:
     assert_select 'h3', "#{@user.microposts.count} Microposts"
