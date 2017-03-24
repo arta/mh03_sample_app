@@ -5,12 +5,22 @@
 : Worthwhile paragraph to keep in mind for production sites. 
 : Adapted:
 
-  "As we’ll see ..., enforcing access control on the followships controller 
-  actions won’t much matter, but we’ll still follow our previous practice of 
-  enforcing the security model as early as possible. In particular, we’ll check
-  that attempts to access actions in the followships controller require 
-  a logged-in user (and thus get redirected to the login page), while also not 
-  changing the followship count.
+    "As we’ll see ..., enforcing access control on the followships controller 
+    actions won’t much matter, but we’ll still follow our previous practice of 
+    enforcing the security model as early as possible. In particular, we’ll 
+    check that attempts to access actions in the followships controller require 
+    a logged-in user (and thus get redirected to the login page), while also not
+    changing the followship count.
+
+• Continued:
+: on followships_controller:
+
+    "... if an unlogged-in user were to hit either action directly (e.g., using 
+    a command-line tool like curl), current_user would be nil, and in both cases 
+    the action’s second line would raise an exception, resulting in an error but 
+    no harm to the application or its data. It’s best not to rely on that,
+    though, so we’ve taken the extra step and added an additional layer of
+    security."  
 
 ################################################################################
 • Translating a path: 
