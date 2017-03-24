@@ -1,6 +1,12 @@
 ################################################################################
 # 3-23-17: #####################################################################
 ################################################################################
+• Re-seed with followships (remember, this destroyes existing db data):
+
+    $ rails db:migrate:reset
+    $ rails db:seed
+
+################################################################################
 • Just to drive the (RESTful) point home:
 : A note on models, controllers, actions, views and routes 
   as access points to our app's resources:
