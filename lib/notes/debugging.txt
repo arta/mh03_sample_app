@@ -1,4 +1,50 @@
 ################################################################################
+# 3-26-17: #####################################################################
+• WHAT: 
+  : Ajax wouldn't update the HTML elements it's supposed to update per 
+    declarations in the Ajax response files /followships/create.js.erb and 
+    ../destroy.js.erb:
+
+          $( '#form_followship' ).html( "..." );
+          $( '#followers' ).html( '...' );
+    
+  : but the current_user.outfollowships would change (evident upon page reload)
+
+• WHEN: clicking Follow / Unfollow buttons
+
+• WHY: 
+  : a comment (!) in create.js.erb and destroy.js.erb files:
+  
+          <!-- some important and very long comment
+               continuing across two lines -->
+          $( '#form_followship' ).html( "..." );
+          $( '#followers' ).html( '...' );
+  
+  : this took almost an hour to figure it out
+
+• FIX:
+  : 1) no comment
+  : 2) or place comments at the bottom
+  : 3) and one comment per line (not broken across multiple lines)
+  : /followships/create.js.erb:
+          ...
+          code
+          ...
+          <!-- now the comment -->
+          <!-- that continues -->
+
+      : or
+          ...
+          code
+          ...
+          <%# now the comment %>
+          <%# that continues %>
+  
+################################################################################
+
+
+
+################################################################################
 # 3-24-17: #####################################################################
 • WHAT:
 

@@ -1,0 +1,4 @@
+$( '#form_followship' ).html( "<%= escape_javascript( render( 'users/follow' ) ) %>" );
+$( '#followers' ).html( '<%= @user.followers.count %>' );
+<%#-- escape_javascript method is needed to escape out the result %>
+<%#-- when inserting HTML in a JavaScript file. %>

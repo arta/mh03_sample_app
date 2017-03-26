@@ -1,4 +1,72 @@
 ################################################################################
+# 3-26-17: #####################################################################
+• Unobtrusive JS:
+  : /users/_follow.html.erb:
+    
+        =form_for current_user.outfollowships.new, remote: true do |f|
+
+    " ... This sets the variable data-remote="true" inside the form tag, which 
+    tells Rails to allow the form to be handled by JavaScript. By using a simple
+    HTML property instead of inserting the full JavaScript code (as in previous
+    versions of Rails), Rails follows the philosophy of unobtrusive JavaScript."
+
+        <form class="new_followship" id="new_followship" action="/followships" 
+        accept-charset="UTF-8" data-remote="true" method="post">
+
+• Set up controller to respond to Ajax requests:
+
+    " ... we now need to arrange for the followships controller to respond to 
+    Ajax requests. We can do this using the respond_to method, responding 
+    appropriately depending on the type of request. The general pattern looks 
+    like this:
+        ...
+        respond_to do |format|
+          format.html { redirect_to @user }
+          format.js
+        end
+        ...
+
+• Ajax config:
+  : /config/application.rb:
+      ...
+      module Mh03SampleApp
+        class Application < Rails::Application
+          ...
+          config.action_view.embed_authenticity_token_in_remote_forms = true
+          ...
+
+• Ajax response files:
+  : /followships/create.js.erb and ../destroy.js.erb
+  
+    "... In the case of an Ajax request, Rails automatically calls a JavaScript 
+    embedded Ruby (.js.erb) file with the same name as the action, i.e. 
+    create.js.erb or destroy.js.erb. ... such files allow us to mix JavaScript 
+    and embedded Ruby to perform actions on the current page. It is these files
+    that we need to create and edit in order to update the user profile page 
+    upon being followed or unfollowed.
+  
+    Inside a .js.erb file, Rails automatically provides the jQuery JavaScript 
+    helpers to manipulate the page using the Document Object Model (DOM). 
+    The jQuery library ... provides a large number of methods for manipulating 
+    the DOM, but here we will need only two:
+      : the dollar-sign syntax `$( "#form_followship" )` to access a DOM element 
+        based on its unique CSS id
+      : `.html`, which updates the HTML inside the relevant element with 
+        the contents of its argument `$( "#form_followship" ).html( "foobar" )`
+    
+    Unlike plain .js files, .js.erb files also allow the use of embedded Ruby, 
+    which we apply in the `create.js.erb` file to update the follow form with 
+    the unfollow partial (which is what should show after a successful
+    following) and update the follower count. 
+    ... the `escape_javascript` method is needed to escape out the result when 
+    inserting HTML in a .js file. ...
+    The `destroy.js.erb` file is analogous."
+
+################################################################################
+
+
+
+################################################################################
 # 3-24-17: #####################################################################
 ################################################################################
 • Security first. 
