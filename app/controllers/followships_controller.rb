@@ -7,7 +7,7 @@ class FollowshipsController < ApplicationController
     @user = User.find params[:followee_id]
     current_user.follow( @user )
     respond_to do |format|
-      format.html { redirect_to @user }#{ redirect_back fallback_location: root_path }
+      format.html { redirect_back fallback_location: root_path } # back to @user
       format.js
     end
   end
@@ -16,7 +16,7 @@ class FollowshipsController < ApplicationController
     @user = Followship.find( params[:id] ).followee
     current_user.unfollow( @user )
     respond_to do |format|
-      format.html { redirect_to @user }# { redirect_back fallback_location: root_path }
+      format.html { redirect_back fallback_location: root_path } # back to @user
       format.js
     end
   end
