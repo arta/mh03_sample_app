@@ -1,4 +1,23 @@
 ################################################################################
+# 3-28-17: #####################################################################
+• Add followship uniqueness validation to the model, too:
+  : although uniqueness is enforced at the db level via migration
+  : create_followships.rb:
+  
+      add_index :followships, [:follower_id, :followee_id], unique: true
+  
+  : it's not declared on the model.
+  : Consequently, tests that should fail (newly created FollowshipTest :: 
+    duplicate should be invalid) actually pass.
+  : Fix in followship.rb:
+  
+      validates :follower_id, uniqueness: { scope: :followee_id }
+
+################################################################################
+
+
+
+################################################################################
 # 3-26-17: #####################################################################
 • Unobtrusive JS:
   : /users/_follow.html.erb:
