@@ -1,5 +1,22 @@
 ################################################################################
 # 3-28-17: #####################################################################
+################################################################################
+• TDD of the status feed:
+  "... The purpose of a feed is to pull out the microposts whose user ids 
+  correspond to the users being followed by the current user (and the current 
+  user itself) ... 
+  
+  [TDD]: Although we don’t yet know how to implement the feed, the tests are 
+  relatively straightforward, so we’ll write them first. The key is to check 
+  all three requirements for the feed:
+  : 1) microposts for both followed users and 
+  : 2) the user itself should be included in the feed, but
+  : 3) a post from an unfollowed user should not be included
+  
+  ... Based on our fixtures, this means that Michael should see Lana’s posts and 
+  his own posts, but not Malory's (instead of M.H.'s: Archer’s) posts."
+    
+################################################################################
 • Add followship uniqueness validation to the model, too:
   : although uniqueness is enforced at the db level via migration
   : create_followships.rb:
