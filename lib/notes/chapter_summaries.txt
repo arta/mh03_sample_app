@@ -1,4 +1,27 @@
 ################################################################################
+14. Following users ############################################################
+
+• Rails’ has_many :through allows the modeling of complicated data 
+  relationships.
+• The has_many method takes several optional arguments, including the object 
+  class name and the foreign key.
+• Using has_many and has_many :through with properly chosen class names and 
+  foreign keys, we can model both active (following) and passive (being 
+  followed) relationships.
+  : I'm using followships in place of relationships; active are outfollowships 
+    (followees), passive are infollowships (followers).
+• Rails routing supports nested routes.
+  : hm, didn't do anything with those in this tutorial 
+• The where method is a flexible and powerful way to create database queries.
+• Rails supports issuing lower-level SQL queries if needed.
+• By putting together everything we’ve learned in this book, we’ve successfully 
+  implemented user outfollowship with a feed of microposts by followees.
+
+################################################################################
+
+
+
+################################################################################
 13. User microposts ############################################################
 
 • Microposts, like Users, are modeled as a resource backed by an Active Record 
