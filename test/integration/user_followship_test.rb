@@ -56,4 +56,11 @@ class UserFollowshipTest < ActionDispatch::IntegrationTest
       delete followship_path( followship ), xhr: true
     end
   end
+
+  test "feed on Home page" do
+    get root_path
+    @user.feed.page( 1 ).each do |micropost|
+      assert_match CGI.escapeHTML( micropost.content ), response.body
+    end
+  end
 end
