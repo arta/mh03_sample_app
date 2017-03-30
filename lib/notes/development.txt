@@ -1,4 +1,60 @@
 ################################################################################
+# 3-29-17: #####################################################################
+• user.feed
+  : inspiration of the current (best) implementation:
+
+      https://www.codementor.io/tips/8339241783/activerecord-use-subqueries-instead-of-literal-in-clause-values
+
+  : could also be:
+
+        followees_and_self = followees.ids << id
+        Micropost.where( user_id: followees_and_self )
+
+  : or:
+
+        Micropost.where( user_id: id ).
+          or( 
+        Micropost.where( user_id: 
+          Followship.select( :followee_id ).where( follower_id: id ) ) )
+
+  : or (Rails' subquery for `IN`):
+
+        Micropost.where( 
+          user_id: Followship.select( :followee_id ).where( follower: self ) ).
+        or( Micropost.where( user: self ) )
+
+  : or:
+
+        Micropost.find_by_sql( ["SELECT m.* FROM microposts m 
+          WHERE m.user_id IN ( 
+            SELECT f.followee_id FROM followships f
+            WHERE f.follower_id = ?)
+          OR m.user_id = ?", id, id] )
+
+  : or (but, why the join?):
+
+        Micropost.find_by_sql( ["SELECT m.* FROM microposts m 
+          WHERE m.user_id IN ( 
+            SELECT u.id FROM users u
+            INNER JOIN followships f ON u.id = f.followee_id
+            WHERE f.follower_id = ?)
+          OR m.user_id = ?", id, id] )
+
+  : or (works, but really complicated, requiring DISTINCT):
+  
+        Micropost.find_by_sql( ["SELECT DISTINCT m.* FROM microposts m 
+          INNER JOIN followships f ON m.user_id = f.followee_id 
+          WHERE m.user_id IN (
+            SELECT DISTINCT f.followee_id 
+            FROM followships f 
+            WHERE f.follower_id = ?)
+          OR m.user_id = ?", id, id] )
+
+################################################################################
+
+
+
+################################################################################
 # 3-28-17: #####################################################################
 ################################################################################
 • TDD of the status feed:

@@ -75,8 +75,9 @@ class User < ApplicationRecord
   end
 
   def feed
-    # a proto-feed:
-    microposts
+    Micropost.where( user: followees ).
+      or( Micropost.where( user: self ) ).
+      order( created_at: :desc )
   end
 
   def followed?( other_user )
